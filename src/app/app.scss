@@ -14,3 +14,42 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+.tabs-ios .tabbar{
+    
+background: -webkit-linear-gradient(-180deg, rgb(29, 200, 139), rgb(20, 90, 25)) ;
+background: linear-gradient(-180deg, rgb(29, 200, 139), rgb(20, 90, 25)) ;
+
+}
+
+.tabs-ios .tab-button{
+    color :#f6f4f4;
+    font-size: 14px;
+}
+
+.tabs-ios .tab-button:hover:not(.disable-hover), .tabs-ios .tab-button[aria-selected=true]{
+    color: #fff;
+}
+
+
+.tabs-ios .tab-button[aria-selected=true] .tab-button-icon{
+    color: #fff;
+}
+
+.tabs-ios .tab-button-icon{
+    color :#f6f4f4;
+    font-size: 32px;
+
+}
+
+.toolbar-title-ios{
+    color: white;
+    font-weight: bolder;
+}
+
+.header-ios .toolbar-ios:last-child .toolbar-background-ios{
+
+background: -webkit-linear-gradient(-180deg, rgb(29, 200, 139), rgb(20, 90, 25));
+background: linear-gradient(-180deg, rgb(29, 200, 139), rgb(20, 90, 25));
+
+}

@@ -15,4 +15,224 @@
 
 <ion-content padding>
 
+
+    <ion-list>
+        <ion-list-header>
+          Recent Conversations
+        </ion-list-header>
+    
+        <ion-item-sliding>
+          <ion-item>
+            <ion-avatar item-start>
+              <img src="https://raw.githubusercontent.com/ionic-team/ionic-preview-app/master/src/assets/img/venkman.jpg">
+            </ion-avatar>
+            <h2>Yokohoma Real Estates</h2>
+            <h3><span style="font-weight:bold">230 contacts</span> [John Couper, Daniel Vitory, Alexandar Grahambell, Chump Chocknovis] </h3>
+            <p>Back off man, I'm a scientist.</p>
+          </ion-item>
+
+
+          <ion-item-options>
+            <button ion-button color="light" icon-start>
+              <ion-icon name="ios-more"></ion-icon>
+              More
+            </button>
+            <button ion-button color="primary" icon-start>
+              <ion-icon name="text"></ion-icon>
+              Text
+            </button>
+            <button ion-button color="danger" icon-start>
+              <ion-icon name="close"></ion-icon>
+              Remove
+            </button>
+          </ion-item-options>
+        </ion-item-sliding>
+
+        <ion-item-sliding>
+            <ion-item>
+              <ion-avatar item-start>
+                <img src="https://raw.githubusercontent.com/ionic-team/ionic-preview-app/master/src/assets/img/venkman.jpg">
+              </ion-avatar>
+              <h2>Family Clients</h2>
+              <h3><span style="font-weight:bold">230 contacts</span> [John Couper, Daniel Vitory, Alexandar Grahambell, Chump Chocknovis] </h3>
+              <p>Back off man, I'm a scientist.</p>
+            </ion-item>
+  
+  
+            <ion-item-options>
+              <button ion-button color="light" icon-start>
+                <ion-icon name="ios-more"></ion-icon>
+                More
+              </button>
+              <button ion-button color="primary" icon-start>
+                <ion-icon name="text"></ion-icon>
+                Text
+              </button>
+              <button ion-button color="danger" icon-start>
+                <ion-icon name="close"></ion-icon>
+                Remove
+              </button>
+            </ion-item-options>
+          </ion-item-sliding>
+
+          <ion-item-sliding>
+              <ion-item>
+                <ion-avatar item-start>
+                  <img src="https://raw.githubusercontent.com/ionic-team/ionic-preview-app/master/src/assets/img/venkman.jpg">
+                </ion-avatar>
+                <h2>New Clients</h2>
+                <h3><span style="font-weight:bold">230 contacts</span> [John Couper, Daniel Vitory, Alexandar Grahambell, Chump Chocknovis] </h3>
+                <p>Back off man, I'm a scientist.</p>
+              </ion-item>
+    
+    
+              <ion-item-options>
+                <button ion-button color="light" icon-start>
+                  <ion-icon name="ios-more"></ion-icon>
+                  More
+                </button>
+                <button ion-button color="primary" icon-start>
+                  <ion-icon name="text"></ion-icon>
+                  Text
+                </button>
+                <button ion-button color="danger" icon-start>
+                  <ion-icon name="close"></ion-icon>
+                  Remove
+                </button>
+              </ion-item-options>
+            </ion-item-sliding>
+
+            <ion-item-sliding>
+                <ion-item>
+                  <ion-avatar item-start>
+                    <img src="https://raw.githubusercontent.com/ionic-team/ionic-preview-app/master/src/assets/img/venkman.jpg">
+                  </ion-avatar>
+                  <h2>United Estates</h2>
+                  <h3><span style="font-weight:bold">230 contacts</span> [John Couper, Daniel Vitory, Alexandar Grahambell, Chump Chocknovis] </h3>
+                  <p>Back off man, I'm a scientist.</p>
+                </ion-item>
+      
+      
+                <ion-item-options>
+                  <button ion-button color="light" icon-start>
+                    <ion-icon name="ios-more"></ion-icon>
+                    More
+                  </button>
+                  <button ion-button color="primary" icon-start>
+                    <ion-icon name="text"></ion-icon>
+                    Text
+                  </button>
+                  <button ion-button color="danger" icon-start>
+                    <ion-icon name="close"></ion-icon>
+                    Remove
+                  </button>
+                </ion-item-options>
+              </ion-item-sliding>
+    
+    
+       
+    
+      </ion-list>
+    
+      <ion-list>
+        <ion-list-header>
+          Groups
+        </ion-list-header>
+    
+        <ion-item-sliding *ngFor="let item of test">
+            <ion-item>
+              <ion-avatar item-start>
+                <img src="https://raw.githubusercontent.com/ionic-team/ionic-preview-app/master/src/assets/img/venkman.jpg">
+              </ion-avatar>
+              <h2>{{item.title}}</h2>
+              <h3><span style="font-weight:bold">{{item.memeberCount}}</span> Contacts </h3>
+            </ion-item>
+  
+  
+            <ion-item-options>
+              <button ion-button color="light" icon-start>
+                <ion-icon name="ios-more"></ion-icon>
+                More
+              </button>
+              <button ion-button color="primary" icon-start>
+                <ion-icon name="text"></ion-icon>
+                Text
+              </button>
+              <button ion-button color="danger" icon-start>
+                <ion-icon name="close"></ion-icon>
+                Remove
+              </button>
+            </ion-item-options>
+          </ion-item-sliding>
+    
+      </ion-list>
+
+    <!-- <ion-list>
+        <ion-list-header>
+          Recent Conversations
+        </ion-list-header>
+    
+        <ion-item>
+          <h2>Yakohoma Estates</h2>
+          <h3>120 members</h3>
+          <p><span style="color:blue">last conversation : </span>Listen, I've had a pretty messed up day...</p>
+        </ion-item>
+
+        <ion-item>
+            <h2>My Favourite</h2>
+            <h3>120 members</h3>
+            <p><span style="color:blue">last conversation : </span>Listen, I've had a pretty messed up day...</p>
+          </ion-item>
+
+          <ion-item>
+              <h2>New Customers</h2>
+              <h3>120 members</h3>
+              <p><span style="color:blue">last conversation :</span>Listen, I've had a pretty messed up day...</p>
+            </ion-item>
+    
+        
+      </ion-list>
+    
+      <ion-list>
+        <ion-list-header>
+          All Groups
+        </ion-list-header>
+    
+        <ion-item>
+          <ion-avatar item-start>
+            <img src="https://github.com/ionic-team/ionic-preview-app/blob/master/src/assets/img/avatar-poe.png">
+          </ion-avatar>
+          <h2>Poe</h2>
+          <h3>New Ride</h3>
+          <p>I just upgraded my X-Wing. Next time...</p>
+        </ion-item>
+    
+        <ion-item>
+          <ion-avatar item-start>
+            <img src="https://github.com/ionic-team/ionic-preview-app/blob/master/src/assets/img/avatar-ben.png">
+          </ion-avatar>
+          <h2>Ben</h2>
+          <h3>Move Along</h3>
+          <p>These aren't the droids you're looking for...</p>
+        </ion-item>
+    
+        <ion-item>
+          <ion-avatar item-start>
+            <img src="https://github.com/ionic-team/ionic-preview-app/blob/master/src/assets/img/avatar-leia.png">
+          </ion-avatar>
+          <h2>Leia</h2>
+          <h3>You're My Only Hope</h3>
+          <p>I've placed information vital to the survival...</p>
+        </ion-item>
+    
+        <ion-item>
+          <ion-avatar item-start>
+            <img src="https://github.com/ionic-team/ionic-preview-app/blob/master/src/assets/img/avatar-yoda.png">
+          </ion-avatar>
+          <h2>Yoda</h2>
+          <h3>Size matters not</h3>
+          <p>Do or do not. There is no try...</p>
+        </ion-item>
+      </ion-list> -->
+
 </ion-content>

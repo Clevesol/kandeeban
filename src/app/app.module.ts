@@ -6,20 +6,29 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { ConversationsPage } from '../pages/conversations/conversations';
+import { TemplatesPage } from '../pages/templates/templates';
+import { PreferencesPage } from '../pages/preferences/preferences';
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    ConversationsPage,
+    TemplatesPage,
+    PreferencesPage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp, {tabsPlacement : 'top'})
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    ConversationsPage,
+    TemplatesPage,
+    PreferencesPage
   ],
   providers: [
     StatusBar,

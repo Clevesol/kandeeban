@@ -1,11 +1,27 @@
+
+<style type="text/css">
+  
+  
+
+</style>
+
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
+
+  <ion-navbar  danger>
+
+    <ion-title  center >
+    	
+    	<h5 style="text-align: center;line-height: 100%;padding-bottom: 2%;" center>SMS Pro</h5>
     </ion-title>
+
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h3>Welcome Home</h3>
-</ion-content>
+
+<ion-tabs >
+  <ion-tab [root]="conversationsPage" tabIcon="ios-chatboxes" tabTitle="Conversations"></ion-tab>
+  <ion-tab [root]="templatesPage" tabIcon="ios-recording" tabTitle="Templates" ></ion-tab>
+  <ion-tab [root]="preferencesPage" tabIcon="ios-settings" tabTitle="Preferences" ></ion-tab>
+</ion-tabs>
+
+
