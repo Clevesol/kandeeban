@@ -9,12 +9,14 @@ import { HomePage } from '../pages/home/home';
 import { ConversationsPage } from '../pages/conversations/conversations';
 import { TemplatesPage } from '../pages/templates/templates';
 import { PreferencesPage } from '../pages/preferences/preferences';
+import { ConversationDetailsPage } from '../pages/conversation-details/conversation-details';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     ConversationsPage,
+    ConversationDetailsPage,
     TemplatesPage,
     PreferencesPage
   ],
@@ -27,6 +29,7 @@ import { PreferencesPage } from '../pages/preferences/preferences';
     MyApp,
     HomePage,
     ConversationsPage,
+    ConversationDetailsPage,
     TemplatesPage,
     PreferencesPage
   ],

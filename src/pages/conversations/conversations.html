@@ -16,13 +16,22 @@
 <ion-content padding>
 
 
+    <div>
+        <ion-searchbar
+        [(ngModel)]="myInput"
+        [showCancelButton]="shouldShowCancel"
+        (ionInput)="onInput($event)"
+        (ionCancel)="onCancel($event)">
+      </ion-searchbar>
+    </div>
+
     <ion-list>
         <ion-list-header>
           Recent Conversations
         </ion-list-header>
     
         <ion-item-sliding>
-          <ion-item>
+          <ion-item (click)="showConverstaionDetails()">
             <ion-avatar item-start>
               <img src="https://raw.githubusercontent.com/ionic-team/ionic-preview-app/master/src/assets/img/venkman.jpg">
             </ion-avatar>
@@ -140,7 +149,7 @@
         </ion-list-header>
     
         <ion-item-sliding *ngFor="let item of test">
-            <ion-item>
+            <ion-item (click)="showConverstaionDetails()">
               <ion-avatar item-start>
                 <img src="https://raw.githubusercontent.com/ionic-team/ionic-preview-app/master/src/assets/img/venkman.jpg">
               </ion-avatar>

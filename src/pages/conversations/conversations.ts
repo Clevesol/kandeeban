@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { ConversationDetailsPage } from '../conversation-details/conversation-details';
 
 /**
  * Generated class for the ConversationsPage page.
@@ -16,13 +17,17 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class ConversationsPage {
 
 
-  test:[] ;
+  private test:string[] = [] ;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  private conversationDetailsPage;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private modalController:ModalController) {
     
-    this.test = [];
     
-    for (let index = 0; index < 100; index++) {
+   
+    
+   
+   for (let index = 0; index < 100; index++) {
       let gro:any = {};
       gro.title = "test group " + index;
       gro.memeberCount = Math.floor(Math.random() * 500);
@@ -32,6 +37,12 @@ export class ConversationsPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ConversationsPage');
+  }
+
+
+  showConverstaionDetails(){
+    this.conversationDetailsPage = this.modalController.create(ConversationDetailsPage, {conversationId : '1'}, {cssClass : 'conversationDetailsModal'});
+    this.conversationDetailsPage.present();
   }
 
 }

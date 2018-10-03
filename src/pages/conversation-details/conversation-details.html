@@ -6,14 +6,53 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <!-- <ion-navbar>
+      <button ion-button clear>
+        <ion-icon name="close"></ion-icon>
+      </button>
     <ion-title>conversation-details</ion-title>
-  </ion-navbar>
+  </ion-navbar> -->
+
+  <ion-toolbar>
+    
+
+      <ion-title><h3 > Yokohoma Real Estates</h3></ion-title>
+      <ion-buttons start>
+        <button (click)="closeMe()" ion-button icon-only color="danger">
+          <ion-icon name="ios-arrow-down"></ion-icon>
+        </button>
+      </ion-buttons>
+  
+    </ion-toolbar>
 
 </ion-header>
 
 
 <ion-content padding>
+
+  <ion-toolbar>
+    <button ion-button icon-only>
+      <ion-icon name="ios-text-outline"></ion-icon>
+    
+    </button>
+    <button ion-button icon-only >
+        <ion-icon name="ios-person-add-outline"></ion-icon>
+       
+      </button>
+
+  </ion-toolbar>
+
+
+  <div >
+    <h3>Messages</h3>
+
+    <ion-searchbar
+      [(ngModel)]="myInput"
+      [showCancelButton]="shouldShowCancel"
+      (ionInput)="onInput($event)"
+      (ionCancel)="onCancel($event)">
+    </ion-searchbar>
+  </div>
 
     <ion-list>
         <ion-list-header>

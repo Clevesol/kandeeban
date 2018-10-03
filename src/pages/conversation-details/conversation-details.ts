@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 
 /**
  * Generated class for the ConversationDetailsPage page.
@@ -15,11 +15,17 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ConversationDetailsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  
+
+  constructor(private me:ViewController, public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ConversationDetailsPage');
+  }
+
+  closeMe(){
+    this.me.dismiss();
   }
 
 }
