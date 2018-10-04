@@ -31,7 +31,7 @@ export class ConversationsPage {
       let gro:any = {};
       gro.title = "test group " + index;
       gro.memeberCount = Math.floor(Math.random() * 500);
-       this.test.push(gro);
+      this.test.push(gro);
     }
   }
 

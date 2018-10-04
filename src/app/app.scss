@@ -53,3 +53,24 @@ background: -webkit-linear-gradient(-180deg, rgb(29, 200, 139), rgb(20, 90, 25))
 background: linear-gradient(-180deg, rgb(29, 200, 139), rgb(20, 90, 25));
 
 }
+
+
+.speech-bubble {
+	position: relative;
+	background: #00aabb;
+	border-radius: .4em;
+}
+
+.speech-bubble:after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 18px solid transparent;
+	border-right-color: #00aabb;
+	border-left: 0;
+	margin-top: -18px;
+	margin-left: -18px;
+}
