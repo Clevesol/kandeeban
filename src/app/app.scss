@@ -54,6 +54,13 @@ background: linear-gradient(-180deg, rgb(29, 200, 139), rgb(20, 90, 25));
 
 }
 
+.footer-iossdf .toolbar-ios:first-child .toolbar-background-ios{
+
+	background: -webkit-linear-gradient(-180deg, rgb(29, 200, 139), rgb(20, 90, 25));
+	background: linear-gradient(-180deg, rgb(29, 200, 139), rgb(20, 90, 25));
+	
+	}
+
 
 .speech-bubble {
 	position: relative;
@@ -74,3 +81,24 @@ background: linear-gradient(-180deg, rgb(29, 200, 139), rgb(20, 90, 25));
 	margin-top: -18px;
 	margin-left: -18px;
 }
+
+
+// .groupComposerComponent>div>create-group.show-page{
+// 	width: 90%;
+// 	height: 60%;
+// 	top:20%;
+// 	left: 5%;
+	
+// }
+
+// create-group.ion-page.show-page{
+// width: 90%;
+// height: 40%;
+// top:30%;
+// left: 5%;
+// border-radius: 5%;
+// }
+
+// ion-modal.groupComposerComponent>div.modal-wrapper{
+// 	background: rgba(0, 0, 0, .7)
+// }

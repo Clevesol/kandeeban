@@ -1,0 +1,29 @@
+<!-- Generated template for the CreateGroupComponent component -->
+
+<ion-header>
+    <ion-navbar>
+      <ion-title style="font-weight:bolder">Create Group</ion-title>
+      <ion-buttons start>
+        <button style="color:white" (click)="closeMe()" ion-button clear>Cancel</button>
+      </ion-buttons>
+      <ion-buttons end>
+          <button style="color:white" ion-button clear>Create</button>
+        </ion-buttons>
+    </ion-navbar>
+  </ion-header>
+
+<ion-content padding>
+  <!-- <h3 text-center color="primary">Create Group</h3> -->
+    <form #form="ngForm" novalidate>
+        <ion-item padding>
+          <ion-label style="color:gray">Groupt Name</ion-label>
+          <ion-input type="text" required [(ngModel)]="todo.name" [ngModelOptions]="{standalone: true}" ></ion-input>
+        </ion-item>
+        
+         <button (click)="showSelectContacts()" full ion-button clear>Select Contacts</button>
+        
+        <p text-center style="color:gray">420 Contacts Selected</p>
+       
+        
+      </form>
+</ion-content>

@@ -13,19 +13,40 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content >
 
+    <ion-searchbar style="position:fixed"
+    [(ngModel)]="myInput"
+    [showCancelButton]="shouldShowCancel"
+    (ionInput)="onInput($event)"
+    (ionCancel)="onCancel($event)">
+  </ion-searchbar>
 
-    <div>
-        <ion-searchbar
-        [(ngModel)]="myInput"
-        [showCancelButton]="shouldShowCancel"
-        (ionInput)="onInput($event)"
-        (ionCancel)="onCancel($event)">
-      </ion-searchbar>
-    </div>
+  <div class="navigation-inside" >
 
-    <ion-list>
+  <ion-toolbar  style="padding:2%; margin-top: 12%;position: fixed;">
+    <ion-buttons start>
+        <button (click)="showMessageComposer()" start ion-button icon-only clear color="primary">
+          Compose
+            <!-- <ion-icon name="text-outline"></ion-icon> -->
+          </button>
+    </ion-buttons>
+    <ion-buttons end>
+        <button (click)="showCreateGroup()" item-end ion-button icon-only clear color="primary">
+          Create Group
+            <!-- <ion-icon name="ios-person-add-outline"></ion-icon> -->
+          </button>
+
+    </ion-buttons>
+     
+
+   
+
+  </ion-toolbar>
+  
+</div>
+
+    <ion-list style="margin-top:23%;" padding>
         <ion-list-header>
           Recent Conversations
         </ion-list-header>
@@ -37,7 +58,7 @@
             </ion-avatar>
             <h2>Yokohoma Real Estates</h2>
             <h3><span style="font-weight:bold">230 contacts</span> [John Couper, Daniel Vitory, Alexandar Grahambell, Chump Chocknovis] </h3>
-            <p>Back off man, I'm a scientist.</p>
+            <p>Recent Conversation Text.</p>
           </ion-item>
 
 
@@ -62,9 +83,9 @@
               <ion-avatar item-start>
                 <img src="https://raw.githubusercontent.com/ionic-team/ionic-preview-app/master/src/assets/img/venkman.jpg">
               </ion-avatar>
-              <h2>Family Clients</h2>
+              <h2>My Clients</h2>
               <h3><span style="font-weight:bold">230 contacts</span> [John Couper, Daniel Vitory, Alexandar Grahambell, Chump Chocknovis] </h3>
-              <p>Back off man, I'm a scientist.</p>
+              <p>Recent comvesatopm preview.</p>
             </ion-item>
   
   
@@ -90,8 +111,8 @@
                   <img src="https://raw.githubusercontent.com/ionic-team/ionic-preview-app/master/src/assets/img/venkman.jpg">
                 </ion-avatar>
                 <h2>New Clients</h2>
-                <h3><span style="font-weight:bold">230 contacts</span> [John Couper, Daniel Vitory, Alexandar Grahambell, Chump Chocknovis] </h3>
-                <p>Back off man, I'm a scientist.</p>
+                <h3><span style="font-weight:bold">260 contacts</span> [John Couper, Daniel Vitory, Alexandar Grahambell, Chump Chocknovis] </h3>
+                <p>Text Description.</p>
               </ion-item>
     
     
@@ -117,8 +138,8 @@
                     <img src="https://raw.githubusercontent.com/ionic-team/ionic-preview-app/master/src/assets/img/venkman.jpg">
                   </ion-avatar>
                   <h2>United Estates</h2>
-                  <h3><span style="font-weight:bold">230 contacts</span> [John Couper, Daniel Vitory, Alexandar Grahambell, Chump Chocknovis] </h3>
-                  <p>Back off man, I'm a scientist.</p>
+                  <h3><span style="font-weight:bold">420 contacts</span> [John Couper, Daniel Vitory, Alexandar Grahambell, Chump Chocknovis] </h3>
+                  <p>text Description.</p>
                 </ion-item>
       
       

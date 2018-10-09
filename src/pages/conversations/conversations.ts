@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { ConversationDetailsPage } from '../conversation-details/conversation-details';
+import { ComposeMessageComponent } from '../../components/compose-message/compose-message';
+import { CreateGroupComponent } from '../../components/create-group/create-group';
 
 /**
  * Generated class for the ConversationsPage page.
@@ -45,4 +47,13 @@ export class ConversationsPage {
     this.conversationDetailsPage.present();
   }
 
+  showMessageComposer(){
+      this.modalController.create(ComposeMessageComponent,{},{cssClass: 'messageComposerComponent'})
+      .present();
+  }
+
+  showCreateGroup(){
+    this.modalController.create(CreateGroupComponent,{},{cssClass: 'groupComposerComponent',enableBackdropDismiss:true})
+    .present();
+  }
 }

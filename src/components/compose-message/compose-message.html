@@ -1,0 +1,38 @@
+<!-- Generated template for the CreateGroupComponent component -->
+
+<ion-header>
+    <ion-navbar>
+      <ion-title style="font-weight:bolder">Compose Message</ion-title>
+      <ion-buttons start>
+        <button style="color: white" (click)="closeMe()" ion-button clear>Cancel</button>
+      </ion-buttons>
+      <ion-buttons end>
+          <button style="color:white" ion-button clear>Send</button>
+        </ion-buttons>
+    </ion-navbar>
+  </ion-header>
+
+<ion-content padding>
+  <!-- <h3 text-center color="primary">Create Group</h3> -->
+    <form #form="ngForm" novalidate>
+      <ion-item>
+          <ion-label style="color:gray">Message</ion-label>
+      </ion-item>
+        <ion-item padding>
+          <ion-textarea maxLength="160" type="text" required [(ngModel)]="todo.name" [ngModelOptions]="{standalone: true}" ></ion-textarea>
+         
+        </ion-item>
+        <div >
+        <p text-center style="color:dimgrey" *ngIf="todo.name">{{160 - todo.name.length}} more charecters remaining</p>
+        </div>
+        <ion-item >
+            <button full ion-button clear>Select Template</button>
+           </ion-item>
+        <ion-item >
+         <button full ion-button clear>Add/Remove Contacts</button>
+         <p text-center style="color:dimgrey">230 Contacts Selected</p>
+        </ion-item>
+       
+        
+      </form>
+</ion-content>
