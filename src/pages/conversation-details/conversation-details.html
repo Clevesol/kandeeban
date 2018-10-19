@@ -1,420 +1,106 @@
 
-<style type="text/css">
-section {
-	max-width: 450px;
-	margin: 50px auto;
-
-	div {
-		max-width: 255px;
-		word-wrap: break-word;
-		margin-bottom: 12px;
-    line-height: 24px;
-    &:after {
-      content: "";
-      display: table;
-      clear: both;
-    }
-	}
-}
-
-.clear {clear: both}
-.from-me {
-	position:relative;
-	padding:10px 20px;
-	color:white; 
-	background:#0B93F6;
-	border-radius:25px;
-	float: right;
-		
-	&:before {
-		content:"";
-		position:absolute;
-		z-index:-1;
-		bottom:-2px;
-		right:-7px;
-		height:20px;
-		border-right:20px solid #0B93F6;
-		border-bottom-left-radius: 16px 14px;
-		-webkit-transform:translate(0, -2px);
-	}
-
-	&:after {
-		content:"";
-		position:absolute;
-		z-index:1;
-		bottom:-2px;
-		right:-56px;
-		width:26px;
-		height:20px;
-		background:white;
-		border-bottom-left-radius: 10px;
-		-webkit-transform:translate(-30px, -2px);
-	}
-}
-.from-them {
-	position:relative;
-	padding:10px 20px;
-	background:#E5E5EA;
-	border-radius:25px;
-	color: black;
-  float: left;
-		
-	&:before {
-		content:"";
-		position:absolute;
-		z-index:2;
-		bottom:-2px;
-		left:-7px;
-		height:20px;
-		border-left:20px solid #E5E5EA;
-		border-bottom-right-radius: 16px 14px;
-		-webkit-transform:translate(0, -2px);
-	}
-
-	&:after {
-		content:"";
-		position:absolute;
-		z-index:3;
-		bottom:-2px;
-		left:4px;
-		width:26px;
-		height:20px;
-		background:white;
-		border-bottom-right-radius: 10px;
-		-webkit-transform:translate(-30px, -2px);
-	}
-}
-</style>
 <!--
   Generated template for the ConversationDetailsPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
 
-  <!-- <ion-navbar>
+
+<ion-header>
+    <ion-navbar>
+        <ion-title *ngIf="!group">Loading</ion-title>
+        <ion-title *ngIf="group">{{group.name}}</ion-title>
+      <ion-buttons start>
+        <button style="color:white;font-weight: bold" (click)="closeMe()" ion-button clear>Close</button>
+      </ion-buttons>
+      <ion-buttons end>
+          <button (click)="showMenu($event)" style="color:white" ion-button clear>
+            <ion-icon name="menu"></ion-icon>
+          </button>
+        </ion-buttons>
+    </ion-navbar>
+  </ion-header>
+
+<!-- <ion-header>
+
+  <ion-navbar>
       <button ion-button clear>
         <ion-icon name="close"></ion-icon>
       </button>
-    <ion-title>conversation-details</ion-title>
-  </ion-navbar> -->
+    <ion-title *ngIf="!groups || groups.length <= 0">Loading</ion-title>
+    <ion-title *ngIf="groups && groups.length > 0">{{groups[currentGroup].name}}</ion-title>
+  </ion-navbar>
+
+ 
+
+</ion-header> -->
+
+
+<ion-content >
 
   <ion-toolbar>
-    
-
-      <ion-title><h3 > Yokohoma Real Estates</h3></ion-title>
-      <ion-buttons start>
-        <button (click)="closeMe()" ion-button icon-only color="danger">
-          <ion-icon name="ios-arrow-down"></ion-icon>
-        </button>
-      </ion-buttons>
-  
-    </ion-toolbar>
-
-</ion-header>
-
-
-<ion-content padding>
-
-  <ion-toolbar>
-    <button ion-button icon-only>
-      <ion-icon name="ios-text-outline"></ion-icon>
-    
-    </button>
-    <button ion-button icon-only >
-        <ion-icon name="ios-person-add-outline"></ion-icon>
-       
-      </button>
-
+    <ion-buttons start>
+      <button (click)="showCompose(currentGroup)" ion-button item-end>Compose</button>
+    </ion-buttons>
   </ion-toolbar>
 
+  <ion-list padding *ngIf="!show && (!conversations || conversations.length <= 0)">
+    <ion-item no-lines no-detail>
+      <p text-center color="gray">no converstation yet</p>
+      <!-- <button color="secondary" (click)="showCompose(currentGroup)" ion-button><ion-icon name="add"></ion-icon>compose new&nbsp;</button> -->
+    </ion-item>
+  </ion-list>
 
-  <section>
-    <div class="from-me">
-      <p>Hey there! What's up?</p>
-    </div>
-  <div class="clear"></div>
+  <!-- <ion-list *ngIf="conversations && conversations.length > 0">
+    <ion-item class="speech-bubble" no-lines no-detail *ngFor="let conv of conversations; let $index=index">
+      <p>{{conv.message}}</p>
+      <a>{{conv.contacts.length}} contacts</a>
+    </ion-item>
+  </ion-list> -->
+
+  <section *ngIf="!show && conversations && conversations.length > 0">
+  <div *ngFor="let conv of conversations; let $index=index">
+    <div class="clear"></div>
     <div class="from-them">
-      <p>Checking out iOS7 you know..</p>
+      <p>{{conv.message}}</p>
+      <div class="pop-contact">
+      </div>
+      <button (click)="showContacts($index)" ion-button clear full color="gray">{{conv.contacts.length}} contact(s)</button>
     </div>
-  <div class="clear"></div>
-    <div class="from-me">
-      <p>Check out this bubble!</p>
+    
     </div>
-  <div class="clear"></div>
-    <div class="from-them">
-      <p>It's pretty cool!</p>
-    </div>
-  <div class="clear"></div>
-    <div class="from-me">
-      <p>Yeah it's pure CSS &amp; HTML</p>
-    </div>
-  <div class="clear"></div>
-    <div class="from-them">
-      <p>Wow that's impressive. But what's even more impressive is that this bubble is really high.</p>
-    </div>
+    
   </section>
 
-    <ion-grid>
-      <ion-row >
-        <ion-col class="speech-bubble" col-8>
-          <p>Zephyr Real Estate gets people into a desirous mindset by writing copy with a command: “imagine coming home to this gorgeous 1 bedroom” in a swanky part of San Francisco. The link description emphasizes this again with “You could be coming home to this.” A desiring mindset is a buying mindset—prompting viewers to click on the ad to find out how to achieve a vision for themselves.
-          </p>
-        </ion-col>
-      </ion-row>
+  
+  <ion-list  *ngIf="show">
+    <ion-list-header>
+      Contacts
+      <button color="danger" (click)="toggleShow()" ion-button item-end clear icon-only>
+          <ion-icon style="font-size: 2.8em; color:#f54545"  name="close" color="gray"></ion-icon>
+      </button>
+    </ion-list-header>
 
-      <ion-row>
-        <ion-col col-8>
-          <p>Zephyr Real Estate gets people into a desirous mindset by writing copy with a command: “imagine coming home to this gorgeous 1 bedroom” in a swanky part of San Francisco. The link description emphasizes this again with “You could be coming home to this.” A desiring mindset is a buying mindset—prompting viewers to click on the ad to find out how to achieve a vision for themselves.
-          </p>
-        </ion-col>
-      </ion-row>
-
-      <ion-row>
-        <ion-col col-8>
-          <p>Zephyr Real Estate gets people into a desirous mindset by writing copy with a command: “imagine coming home to this gorgeous 1 bedroom” in a swanky part of San Francisco. The link description emphasizes this again with “You could be coming home to this.” A desiring mindset is a buying mindset—prompting viewers to click on the ad to find out how to achieve a vision for themselves.
-          </p>
-        </ion-col>
-      </ion-row>
-
-      <ion-row>
-        <ion-col col-8>
-          <p>Zephyr Real Estate gets people into a desirous mindset by writing copy with a command: “imagine coming home to this gorgeous 1 bedroom” in a swanky part of San Francisco. The link description emphasizes this again with “You could be coming home to this.” A desiring mindset is a buying mindset—prompting viewers to click on the ad to find out how to achieve a vision for themselves.
-          </p>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+    <ion-item-sliding *ngFor="let item of group.contacts; let $idx = index">
+        <ion-item>
+            <h2>{{item.name.formatted}}</h2>
+            <h3>{{item.value}}</h3>
+        </ion-item>
+        <ion-item-options side="right">
+          <button (click)="removeContact($idx)" ion-button color="danger">
+            <ion-icon name="trash"></ion-icon>
+            remove
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
 
 
-    <!-- <ion-list>
-        <ion-list-header>
-          Busters
-        </ion-list-header>
-    
-        <ion-item-sliding>
-          <ion-item>
-            <ion-avatar item-start>
-              <img src="https://raw.githubusercontent.com/ionic-team/ionic-preview-app/master/src/assets/img/venkman.jpg">
-            </ion-avatar>
-            <h2>Venkman</h2>
-            <p>Back off man, I'm a scientist.</p>
-          </ion-item>
-          <ion-item-options>
-            <button ion-button color="light" icon-start>
-              <ion-icon name="ios-more"></ion-icon>
-              More
-            </button>
-            <button ion-button color="primary" icon-start>
-              <ion-icon name="text"></ion-icon>
-              Text
-            </button>
-            <button ion-button color="secondary" icon-start>
-              <ion-icon name="call"></ion-icon>
-              Call
-            </button>
-          </ion-item-options>
-        </ion-item-sliding>
-    
-    
-        <ion-item-sliding>
-          <ion-item>
-            <ion-avatar item-start>
-              <img src="https://raw.githubusercontent.com/ionic-team/ionic-preview-app/master/src/assets/img/spengler.jpg">
-            </ion-avatar>
-            <h2>Egon</h2>
-            <p>We're gonna go full stream.</p>
-          </ion-item>
-          <ion-item-options>
-            <button ion-button color="light" icon-start>
-              <ion-icon name="ios-more"></ion-icon>
-              More
-            </button>
-            <button ion-button color="primary" icon-start>
-              <ion-icon name="text"></ion-icon>
-              Text
-            </button>
-            <button ion-button color="secondary" icon-start>
-              <ion-icon name="call"></ion-icon>
-              Call
-            </button>
-          </ion-item-options>
-        </ion-item-sliding>
-    
-        <ion-item-sliding>
-          <ion-item>
-            <ion-avatar item-start>
-              <img src="https://raw.githubusercontent.com/ionic-team/ionic-preview-app/master/src/assets/img/stantz.jpg">
-            </ion-avatar>
-            <h2>Ray</h2>
-            <p>Ugly little spud, isn't he?</p>
-          </ion-item>
-          <ion-item-options>
-            <button ion-button color="light" icon-start>
-              <ion-icon name="ios-more"></ion-icon>
-              More
-            </button>
-            <button ion-button color="primary" icon-start>
-              <ion-icon name="text"></ion-icon>
-              Text
-            </button>
-            <button ion-button color="secondary" icon-start>
-              <ion-icon name="call"></ion-icon>
-              Call
-            </button>
-          </ion-item-options>
-        </ion-item-sliding>
-    
-        <ion-item-sliding>
-          <ion-item>
-            <ion-avatar item-start>
-              <img src="https://raw.githubusercontent.com/ionic-team/ionic-preview-app/master/src/assets/img/winston.jpg">
-            </ion-avatar>
-            <h2>Winston</h2>
-            <p>That's a big Twinkie.</p>
-          </ion-item>
-          <ion-item-options>
-            <button ion-button color="light" icon-start>
-              <ion-icon name="ios-more"></ion-icon>
-              More
-            </button>
-            <button ion-button color="primary" icon-start>
-              <ion-icon name="text"></ion-icon>
-              Text
-            </button>
-            <button ion-button color="secondary" icon-start>
-              <ion-icon name="call"></ion-icon>
-              Call
-            </button>
-          </ion-item-options>
-        </ion-item-sliding>
-    
-        <ion-item-sliding>
-          <ion-item>
-            <ion-avatar item-start>
-              <img src="https://raw.githubusercontent.com/ionic-team/ionic-preview-app/master/src/assets/img/tully.jpg">
-            </ion-avatar>
-            <h2>Tully</h2>
-            <p>Okay, who brought the dog?</p>
-          </ion-item>
-          <ion-item-options>
-            <button ion-button color="light" icon-start>
-              <ion-icon name="ios-more"></ion-icon>
-              More
-            </button>
-            <button ion-button color="primary" icon-start>
-              <ion-icon name="text"></ion-icon>
-              Text
-            </button>
-            <button ion-button color="secondary" icon-start>
-              <ion-icon name="call"></ion-icon>
-              Call
-            </button>
-          </ion-item-options>
-        </ion-item-sliding>
-    
-        <ion-item-sliding>
-          <ion-item>
-            <ion-avatar item-start>
-              <img src="https://raw.githubusercontent.com/ionic-team/ionic-preview-app/master/src/assets/img/barrett.jpg">
-            </ion-avatar>
-            <h2>Dana</h2>
-            <p>I am The Gatekeeper!</p>
-          </ion-item>
-          <ion-item-options>
-            <button ion-button color="light" icon-start>
-              <ion-icon name="ios-more"></ion-icon>
-              More
-            </button>
-            <button ion-button color="primary" icon-start>
-              <ion-icon name="text"></ion-icon>
-              Text
-            </button>
-            <button ion-button color="secondary"icon-start >
-              <ion-icon name="call"></ion-icon>
-              Call
-            </button>
-          </ion-item-options>
-        </ion-item-sliding>
-    
-      </ion-list>
-    
-      <ion-list>
-        <ion-list-header>
-          Ghosts
-        </ion-list-header>
-    
-        <ion-item-sliding>
-          <ion-item>
-            <ion-avatar item-start>
-              <img src="https://raw.githubusercontent.com/ionic-team/ionic-preview-app/master/src/assets/img/slimer.jpg">
-            </ion-avatar>
-            <h2>Slimer</h2>
-            <p>Boo!</p>
-          </ion-item>
-          <ion-item-options>
-            <button ion-button color="light" icon-start>
-              <ion-icon name="ios-more"></ion-icon>
-              More
-            </button>
-            <button ion-button color="primary" icon-start>
-              <ion-icon name="text"></ion-icon>
-              Text
-            </button>
-            <button ion-button color="secondary" icon-start>
-              <ion-icon name="call"></ion-icon>
-              Call
-            </button>
-          </ion-item-options>
-        </ion-item-sliding>
-    
-        <ion-item-sliding>
-          <ion-item>
-            <ion-avatar item-start>
-              <img src="https://raw.githubusercontent.com/ionic-team/ionic-preview-app/master/src/assets/img/marshmallow-man.png">
-            </ion-avatar>
-            <h2>Stay Puft Marshmallow Man</h2>
-            <p>Never cross the streams!</p>
-          </ion-item>
-          <ion-item-options>
-            <button ion-button color="light" icon-start>
-              <ion-icon name="ios-more"></ion-icon>
-              More
-            </button>
-            <button ion-button color="primary" icon-start>
-              <ion-icon name="text"></ion-icon>
-              Text
-            </button>
-            <button ion-button color="secondary" icon-start>
-              <ion-icon name="call"></ion-icon>
-              Call
-            </button>
-          </ion-item-options>
-        </ion-item-sliding>
-    
-        <ion-item-sliding>
-          <ion-item>
-            <ion-avatar item-start>
-              <img src="https://raw.githubusercontent.com/ionic-team/ionic-preview-app/master/src/assets/img/gozer.png">
-            </ion-avatar>
-            <h2>Gozer</h2>
-            <p>Are you a God?</p>
-          </ion-item>
-          <ion-item-options>
-            <button ion-button color="light" icon-start>
-              <ion-icon name="ios-more"></ion-icon>
-              More
-            </button>
-            <button ion-button color="primary" icon-start>
-              <ion-icon name="text"></ion-icon>
-              Text
-            </button>
-            <button ion-button color="secondary" icon-start>
-              <ion-icon name="call"></ion-icon>
-              Call
-            </button>
-          </ion-item-options>
-        </ion-item-sliding>
-    
-      </ion-list> -->
+    <!-- <ion-item *ngFor="let item of group.contacts; let $idx = index">
+      <h2>{{item.name.formatted}}</h2>
+      <h3>{{item.value}}</h3>
+    </ion-item> -->
+  </ion-list>
+
+
 </ion-content>

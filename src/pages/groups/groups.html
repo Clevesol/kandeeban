@@ -1,0 +1,64 @@
+<!--
+  Generated template for the GroupsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>groups</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-list padding>
+        <ion-list-header>
+            All Groups
+            <button *ngIf="groups" clear item-end color="gray">
+                {{groups.length}} groups
+            </button>
+          </ion-list-header>
+        <ion-grid *ngIf="!groups || groups.length <= 0">
+            <ion-row>
+              <ion-col  col-6 offset-3>
+                 
+                      <div no-lines no-detail ion-item>
+                       <p text-center style="color:gray">No groups yet.</p>
+                       <button full round color="secondary" (click)="showCreateGroup()" ion-button>Add group&nbsp;<ion-icon name="add-circle" ></ion-icon></button>
+                       </div>
+                    
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+    
+        <ion-item-sliding *ngFor="let group of groups; let idx = index;">
+            <ion-item (click)="showConverstaionDetails(idx)">
+              <ion-avatar item-start>
+                <img src="https://raw.githubusercontent.com/ionic-team/ionic-preview-app/master/src/assets/img/venkman.jpg">
+              </ion-avatar>
+              <h2>{{group.name}}</h2>
+              <h3><span style="font-weight:bold">{{group.contacts.length}}</span> Contacts </h3>
+            </ion-item>
+  
+  
+            <ion-item-options>
+              <button ion-button color="light" icon-start>
+                <ion-icon name="ios-more"></ion-icon>
+                More
+              </button>
+              <button ion-button color="primary" icon-start>
+                <ion-icon name="text"></ion-icon>
+                Text
+              </button>
+              <button (click)="removeGroup(idx)" ion-button color="danger" icon-start>
+                <ion-icon name="close"></ion-icon>
+                Remove
+              </button>
+            </ion-item-options>
+          </ion-item-sliding>
+    
+      </ion-list>
+</ion-content>

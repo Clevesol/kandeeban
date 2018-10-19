@@ -1,31 +1,79 @@
 
 <ion-header>
-    <ion-navbar>
-      <ion-title style="font-weight:bolder">Select Contacts</ion-title>
+    <ion-navbar color="light">
+      <ion-title *ngIf="selectedList.length <= 0" style="font-weight:bolder">Select Contacts</ion-title>
+      <ion-title *ngIf="selectedList.length > 0" style="font-weight:bolder">{{selectedList.length}} Contact(s) Selected</ion-title>
       <ion-buttons start>
         <button style="color:white" (click)="closeMe()" ion-button clear>Cancel</button>
       </ion-buttons>
       <ion-buttons end>
-          <button style="color:white" ion-button clear>Done</button>
+          <button (click)="done()" style="color:white" ion-button clear>Done</button>
         </ion-buttons>
     </ion-navbar>
   </ion-header>
-
-
 <ion-content>
 
-    <ion-list>
+    
+    
+   <div  list *ngIf="!contacts">
+     <div no-lines no-detail ion-item>
+      <ion-spinner  style="display:block;margin:auto" name="ios-small"></ion-spinner>
+      <p text-center style="color:gray">Reading Contacts</p>
+      </div>
+    </div>
 
-        <ion-item *ngFor="let person of contacts">
-         <ion-label>
-            <h2>{{person.name}}</h2>
-          <h4>{{person.phone}}</h4>
-          <p>{{person.email}}</p>
-          </ion-label>
-          <ion-checkbox></ion-checkbox>
+    <ion-list *ngIf="contacts" >
+        <ion-item  item-content (click)="toggle($event,$index)"  *ngFor="let person of contacts; let $index = index;">
+           
+                
+                <h2 style="font-weight:bold" >{{  person.name.formatted || person.formatted || person.name}} </h2>
+                <button  ion-button icon-only clear item-right >
+                    <ion-icon  *ngIf="expandingList !== $index" color="light" name="checkmark-circle-outline"></ion-icon>
+                    
+                  </button>
+                
+
+                <button  ion-button icon-only clear item-right >
+                  <ion-icon  *ngIf="expandingList !== $index" color="light" name="ios-arrow-down"></ion-icon>
+                  <ion-icon  *ngIf="expandingList === $index" color="light" name="ios-arrow-up"></ion-icon>
+                </button>
+                
+                <div  list *ngIf="expandingList === $index" >
+                  <!-- <div ion-item  *ngFor="let pnumber of person.phoneNumbers"> -->
+                    <!-- <h3>{{pnumber.value}}</h3> -->
+
+                    <!-- (click)="addClick();$event.stopPropagation();" -->
+                    <button (click)="toggleNumber(num)" *ngFor="let pnumber of person.phoneNumbers;let num = index;"  ion-item no-lines detail-none >
+                      {{pnumber.value}}  
+
+                      <ion-icon item-start *ngIf="inSelection(num);" color="light" name="checkmark-circle"></ion-icon>
+                      <ion-icon item-start *ngIf="!inSelection(num);" color="light" name="checkmark-circle-outline"></ion-icon>
+                      <ion-icon item-start *ngIf="pnumber.type === 'home'" color="gray" name="home"></ion-icon>
+                      <ion-icon item-start *ngIf="pnumber.type === 'work'" color="gray" name="beaker"></ion-icon>
+                      <ion-icon item-start *ngIf="pnumber.type === 'mobile'" color="gray" name="phone-portrait"></ion-icon>
+                      <ion-icon item-start *ngIf="pnumber.type !== 'home' && pnumber.type !== 'mobile' && pnumber !== 'work'" color="gray" name="card"></ion-icon>
+                    </button>
+                  <!-- </div> -->
+                </div>
+
+                <div list *ngIf="(expandingList === $index) && (!person.phoneNumbers || person.phoneNumbers.length <= 0)">
+                  <p list-item> no numbers</p>
+                </div>
+                
+                <!-- <ion-checkbox></ion-checkbox> -->
+          
+            <!-- <ion-list ion-content  >
+              <ion-item no-lines *ngFor="let pnumber of person.phoneNumbers">
+                <ion-label>
+                <h3 >{{pnumber.value}} <span style="color:gray">{{pnumber.type}}</span></h3>
+                </ion-label>
+                <ion-checkbox color="light"></ion-checkbox>
+              </ion-item>
+            </ion-list> -->
+
+            
+            
         </ion-item>
-      
-      
       
       </ion-list>
 </ion-content>

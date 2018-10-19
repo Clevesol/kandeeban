@@ -1,8 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { Group } from '../../objs/group';
-import { ViewController,ModalController } from 'ionic-angular';
+import { ViewController,ModalController,ToastController } from 'ionic-angular';
 import { GroupAutoComponent } from '../group-auto/group-auto';
-
+import {GroupmanagerProvider} from '../../providers/groupmanager/groupmanager';
 /**
  * Generated class for the CreateGroupComponent component.
  *
@@ -15,10 +15,15 @@ import { GroupAutoComponent } from '../group-auto/group-auto';
 })
 export class CreateGroupComponent {
 
-  todo:Group = new Group();
+  newGroup:Group = new Group();
+  private contactListComponent;
 
-  constructor(private viewChild:ViewController, private modalController:ModalController) {
-    console.log('Hello CreateGroupComponent Component');
+
+  constructor(private toast:ToastController,private groupManager:GroupmanagerProvider,private viewChild:ViewController, private modalController:ModalController) {
+    this.newGroup.name = "";
+    this.newGroup.id = 123;
+
+    
     
   }
 
@@ -28,7 +33,29 @@ export class CreateGroupComponent {
 
 
   showSelectContacts(){
-    this.modalController.create(GroupAutoComponent,{},{}).present();
+    this.contactListComponent = this.modalController.create(GroupAutoComponent,{data: this.newGroup.contacts},{});
+    this.contactListComponent.onDidDismiss(function(selectedList){
+      if(selectedList && selectedList.length > 0){
+        this.newGroup.contacts = selectedList;
+      }
+    }.bind(this));
+    this.contactListComponent.present();
+  }
+
+
+  createGroup(){
+    console.log('cheking', this.newGroup.name);
+    this.groupManager.checkExist(this.newGroup.name).then(function(res){
+      console.log(res);
+      if(res){
+        this.toast.create({message: "groupt already excists or invalid name", duration: 1500, position:'top'}).present();
+      }else{
+        this.groupManager.addGroup(this.newGroup);
+        this.closeMe();
+      }
+    }.bind(this));
+    
+   // this.toast.create({message: "groupt created", duration: 500, position:'bottom'}).present();
   }
 
 }

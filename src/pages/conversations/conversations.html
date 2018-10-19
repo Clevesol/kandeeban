@@ -15,16 +15,16 @@
 
 <ion-content >
 
-    <ion-searchbar style="position:fixed"
+    <!-- <ion-searchbar style="position:fixed"
     [(ngModel)]="myInput"
     [showCancelButton]="shouldShowCancel"
     (ionInput)="onInput($event)"
     (ionCancel)="onCancel($event)">
-  </ion-searchbar>
-
+  </ion-searchbar> -->
+  <div>
   <div class="navigation-inside" >
 
-  <ion-toolbar  style="padding:2%; margin-top: 12%;position: fixed;">
+  <ion-toolbar  style="padding:2%;position: fixed;">
     <ion-buttons start>
         <button (click)="showMessageComposer()" start ion-button icon-only clear color="primary">
           Compose
@@ -45,13 +45,42 @@
   </ion-toolbar>
   
 </div>
+</div>
 
-    <ion-list style="margin-top:23%;" padding>
+    <ion-list  style="margin-top:11%;" padding>
         <ion-list-header>
           Recent Conversations
         </ion-list-header>
+
+        <!-- <h5 text-center *ngIf="!recentList || recentList.length <= 0">no recent converstaions</h5> -->
     
-        <ion-item-sliding>
+
+        <ion-grid *ngIf="!recentList || recentList.length <= 0">
+            <ion-row>
+              <ion-col  col-8 offset-2>
+                 
+                      <div no-lines no-detail ion-item>
+                       <p text-center style="color:gray">No conversations yet.</p>
+                       <!-- <button full round color="secondary" (click)="showMessageComposer()" ion-button>Compose New &nbsp;<ion-icon name="text" ></ion-icon></button> -->
+                       </div>
+                    
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+
+          <ion-item-sliding *ngFor="let conv of recentList; let $index = index">
+              <ion-item >
+                <ion-avatar item-start>
+                  <img src="https://raw.githubusercontent.com/ionic-team/ionic-preview-app/master/src/assets/img/venkman.jpg">
+                </ion-avatar>
+                <h2>{{conv.group}}</h2>
+                <h3><span style="font-weight:bold">{{conv.conversations[0].contacts.length}}</span> </h3>
+                <p>{{conv.conversations[0].message}}</p>
+              </ion-item>
+            </ion-item-sliding>
+
+        <!-- <ion-item-sliding>
           <ion-item (click)="showConverstaionDetails()">
             <ion-avatar item-start>
               <img src="https://raw.githubusercontent.com/ionic-team/ionic-preview-app/master/src/assets/img/venkman.jpg">
@@ -157,25 +186,43 @@
                     Remove
                   </button>
                 </ion-item-options>
-              </ion-item-sliding>
+              </ion-item-sliding> -->
     
     
        
     
       </ion-list>
+
+     
     
-      <ion-list>
+      <ion-list padding>
         <ion-list-header>
-          Groups
+          recent Groups
+          <button *ngIf="groups" clear item-end color="gray">
+              {{groups.length}} groups
+          </button>
         </ion-list-header>
+
+        <ion-grid *ngIf="!groups || groups.length <= 0">
+            <ion-row>
+              <ion-col  col-6 offset-3>
+                 
+                      <div no-lines no-detail ion-item>
+                       <p text-center style="color:gray">No groups yet.</p>
+                       <button full round color="secondary" (click)="showCreateGroup()" ion-button>Add group&nbsp;<ion-icon name="add-circle" ></ion-icon></button>
+                       </div>
+                    
+              </ion-col>
+            </ion-row>
+          </ion-grid>
     
-        <ion-item-sliding *ngFor="let item of test">
-            <ion-item (click)="showConverstaionDetails()">
+        <ion-item-sliding *ngFor="let group of recentGroupList; let idx = index;">
+            <ion-item (click)="showConverstaionDetails(idx)">
               <ion-avatar item-start>
                 <img src="https://raw.githubusercontent.com/ionic-team/ionic-preview-app/master/src/assets/img/venkman.jpg">
               </ion-avatar>
-              <h2>{{item.title}}</h2>
-              <h3><span style="font-weight:bold">{{item.memeberCount}}</span> Contacts </h3>
+              <h2>{{group.name}}</h2>
+              <h3><span style="font-weight:bold">{{group.contacts.length}}</span> Contacts </h3>
             </ion-item>
   
   
@@ -188,7 +235,7 @@
                 <ion-icon name="text"></ion-icon>
                 Text
               </button>
-              <button ion-button color="danger" icon-start>
+              <button (click)="removeGroup(idx)" ion-button color="danger" icon-start>
                 <ion-icon name="close"></ion-icon>
                 Remove
               </button>
@@ -196,73 +243,5 @@
           </ion-item-sliding>
     
       </ion-list>
-
-    <!-- <ion-list>
-        <ion-list-header>
-          Recent Conversations
-        </ion-list-header>
-    
-        <ion-item>
-          <h2>Yakohoma Estates</h2>
-          <h3>120 members</h3>
-          <p><span style="color:blue">last conversation : </span>Listen, I've had a pretty messed up day...</p>
-        </ion-item>
-
-        <ion-item>
-            <h2>My Favourite</h2>
-            <h3>120 members</h3>
-            <p><span style="color:blue">last conversation : </span>Listen, I've had a pretty messed up day...</p>
-          </ion-item>
-
-          <ion-item>
-              <h2>New Customers</h2>
-              <h3>120 members</h3>
-              <p><span style="color:blue">last conversation :</span>Listen, I've had a pretty messed up day...</p>
-            </ion-item>
-    
-        
-      </ion-list>
-    
-      <ion-list>
-        <ion-list-header>
-          All Groups
-        </ion-list-header>
-    
-        <ion-item>
-          <ion-avatar item-start>
-            <img src="https://github.com/ionic-team/ionic-preview-app/blob/master/src/assets/img/avatar-poe.png">
-          </ion-avatar>
-          <h2>Poe</h2>
-          <h3>New Ride</h3>
-          <p>I just upgraded my X-Wing. Next time...</p>
-        </ion-item>
-    
-        <ion-item>
-          <ion-avatar item-start>
-            <img src="https://github.com/ionic-team/ionic-preview-app/blob/master/src/assets/img/avatar-ben.png">
-          </ion-avatar>
-          <h2>Ben</h2>
-          <h3>Move Along</h3>
-          <p>These aren't the droids you're looking for...</p>
-        </ion-item>
-    
-        <ion-item>
-          <ion-avatar item-start>
-            <img src="https://github.com/ionic-team/ionic-preview-app/blob/master/src/assets/img/avatar-leia.png">
-          </ion-avatar>
-          <h2>Leia</h2>
-          <h3>You're My Only Hope</h3>
-          <p>I've placed information vital to the survival...</p>
-        </ion-item>
-    
-        <ion-item>
-          <ion-avatar item-start>
-            <img src="https://github.com/ionic-team/ionic-preview-app/blob/master/src/assets/img/avatar-yoda.png">
-          </ion-avatar>
-          <h2>Yoda</h2>
-          <h3>Size matters not</h3>
-          <p>Do or do not. There is no try...</p>
-        </ion-item>
-      </ion-list> -->
 
 </ion-content>

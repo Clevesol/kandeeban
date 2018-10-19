@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import { ConversationsPage } from '../conversations/conversations';
 import { TemplatesPage } from '../templates/templates';
 import { PreferencesPage } from '../preferences/preferences';
+import { GroupsPage } from '../groups/groups';
 
 @Component({
   selector: 'page-home',
@@ -12,7 +13,7 @@ export class HomePage {
 
 
   conversationsPage = ConversationsPage;
-  templatesPage = TemplatesPage;
+  templatesPage = GroupsPage;
   preferencesPage = PreferencesPage;
   
 

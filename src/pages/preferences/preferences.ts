@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
+import { TemplatesManagerProvider } from '../../providers/templates-manager/templates-manager';
+import { TemplatesPage } from '../templates/templates';
+import { ConverstationCoreProvider } from '../../providers/converstation-core/converstation-core';
 
 
 /**
@@ -19,11 +22,33 @@ export class PreferencesPage {
 
   
   
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController,
+     public navParams: NavParams,
+     private model:ModalController,
+     private converCore:ConverstationCoreProvider,
+     private alert:AlertController) {
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PreferencesPage');
+  }
+
+  showTemplates(){
+    let tmplModel = this.model.create(TemplatesPage,{show:1},{});
+    tmplModel.present();
+  }
+
+  clearConversations(){
+    this.alert.create({title:'Clear Conversations ?', message: 'clear conversations? cannot be undone!', 
+    buttons:[
+
+      {text:'Cancel', role: 'cancel'},
+      {text: "Clear", handler:function(){
+        this.converCore.clearConversations();
+      }.bind(this)}
+    ]
+    }).present();
   }
 
 }

@@ -1,0 +1,16 @@
+<!-- Generated template for the GroupPopoverComponent component -->
+<ion-list>
+  <ion-item no-details   (click)="switchContactsView()">
+      <ion-icon name="contacts" item-end></ion-icon>
+    Show Contacts
+  </ion-item>
+  <ion-item no-details (click)="addContacts()">
+      <ion-icon name="person-add" item-end></ion-icon>
+    Add/Remove Contact(s)
+  </ion-item>
+  
+  <ion-item style="color:#f54545" no-details (click)="removeGroup()" ion-item >
+    <ion-icon name="trash" item-end></ion-icon>
+     Delete Group
+  </ion-item>
+</ion-list>

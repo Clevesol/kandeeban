@@ -1,0 +1,30 @@
+<!-- Generated template for the TemplatesManagerComponent component -->
+
+<ion-header>
+    <ion-navbar>
+      <ion-title style="font-weight:bolder">Templates</ion-title>
+      
+      <ion-buttons start>
+        <button style="color: white" (click)="closeMe()" ion-button clear>Cancel</button>
+      </ion-buttons>
+      <ion-buttons *ngIf="mode > -1" end>
+          <button (click)="closeMe()" style="color:white" ion-button clear>Done</button>
+      </ion-buttons>
+    </ion-navbar>
+  </ion-header>
+
+<ion-content padding>
+  <ion-list padding>
+    <ion-item >
+        <ion-textarea placeholder="text here" maxLength="160" type="text" required [(ngModel)]="text" [ngModelOptions]="{standalone: true}" ></ion-textarea>
+      
+    </ion-item>
+    <p *ngIf="text">{{160 - text.length}} charecters remaining</p>
+    <ion-item *ngIf="mode === -1">
+      <button (click)="addTemplate()" ion-button item-end full color="secondary">Add</button>
+    </ion-item>
+    <ion-item *ngIf="mode > -1">
+        <button (click)="updateTemplate()" ion-button item-end full color="secondary">Update</button>
+    </ion-item>
+  </ion-list>
+</ion-content>

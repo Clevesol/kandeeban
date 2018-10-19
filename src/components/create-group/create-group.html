@@ -7,22 +7,22 @@
         <button style="color:white" (click)="closeMe()" ion-button clear>Cancel</button>
       </ion-buttons>
       <ion-buttons end>
-          <button style="color:white" ion-button clear>Create</button>
+          <button (click)="createGroup()" style="color:white" ion-button clear>Create</button>
         </ion-buttons>
     </ion-navbar>
   </ion-header>
 
 <ion-content padding>
   <!-- <h3 text-center color="primary">Create Group</h3> -->
-    <form #form="ngForm" novalidate>
+    <form *ngIf="newGroup" #form="ngForm" novalidate>
         <ion-item padding>
           <ion-label style="color:gray">Groupt Name</ion-label>
-          <ion-input type="text" required [(ngModel)]="todo.name" [ngModelOptions]="{standalone: true}" ></ion-input>
+          <ion-input type="text" required [(ngModel)]="newGroup.name" [ngModelOptions]="{standalone: true}" ></ion-input>
         </ion-item>
         
          <button (click)="showSelectContacts()" full ion-button clear>Select Contacts</button>
         
-        <p text-center style="color:gray">420 Contacts Selected</p>
+        <p *ngIf="newGroup.contacts" text-center style="color:gray">{{newGroup.contacts.length}} Contacts Selected</p>
        
         
       </form>

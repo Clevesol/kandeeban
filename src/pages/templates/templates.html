@@ -7,12 +7,34 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>templates</ion-title>
+    <ion-title>Templates</ion-title>
+    <ion-buttons *ngIf="mode===1 || !mode" start>
+        <button style="color: white" (click)="closeMe()" ion-button clear>Close</button>
+      </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+  
+  <ion-list>
+      <ion-list-header>
+          <button (click)="createTemplate()" ion-button item-end clear>
+            New Template
+          </button>
+        </ion-list-header>
+      <ion-item-sliding *ngFor="let item of templates; let $idx = index">
+          <ion-item>
+              <h4 *ngIf="mode===1 || !mode" (click)="updateTemplate($idx)">{{item}}</h4>
+              <h4 *ngIf="mode===2" (click)="send($idx)">{{item}}</h4>
+          </ion-item>
+          <ion-item-options side="right">
+            <button (click)="removeTemplate($idx)" ion-button color="danger">
+              <ion-icon name="trash"></ion-icon>
+              delete
+            </button>
+          </ion-item-options>
+        </ion-item-sliding>
+  </ion-list>
 </ion-content>
