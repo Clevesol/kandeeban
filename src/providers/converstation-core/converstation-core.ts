@@ -79,7 +79,7 @@ export class ConverstationCoreProvider {
     return new Promise(function(resolve) {
 
       this.getConversations().then(function(convestations){
-        console.log('the; conversations',convestations);
+        ////console.log('the; conversations',convestations);
         if(convestations !== null && convestations.length > 0){
           for(let t = 0; t < convestations.length; t++){
             if(convestations[t].group === group){
@@ -98,7 +98,7 @@ export class ConverstationCoreProvider {
   getConversations(){
     return new Promise(resolve => {
       this.storage.get(CONVERSATION_IDENTIFIER).then((data => {
-        console.log('conversation in db', data);
+        ////console.log('conversation in db', data);
 
         if(!data){
           data = "[]";
@@ -122,7 +122,7 @@ export class ConverstationCoreProvider {
    
 
     // return new Promise(resolve => {
-      return this.contacts.find(["displayName", "phoneNumbers"],{multiple:true});
+      return this.contacts.find(["displayName"]);
     // });
 
 
@@ -130,7 +130,7 @@ export class ConverstationCoreProvider {
     //   this.contacts.find(["displayName", "phoneNumbers"],{multiple:true}).subscribe(data => {
     //     resolve(data);
     //   }, err => {
-    //     console.log(err);
+    //     //console.log(err);
     //     resolve(err);
     //   });
     // });
@@ -157,9 +157,9 @@ export class ConverstationCoreProvider {
 
   addToConverations(group,contacts,message){
 
-      console.log('addToConverations:: group->', group, 'contacts->', contacts, 'message-> ', message);
+      //console.log('addToConverations:: group->', group, 'contacts->', contacts, 'message-> ', message);
       this.getConversations().then(function(conversations){
-        console.log('conversationcore::addtoConvestations::-> ', conversations);
+        ////console.log('conversationcore::addtoConvestations::-> ', conversations);
         let conver = conversations;
         if(!conversations){
             conver = [];
@@ -183,9 +183,9 @@ export class ConverstationCoreProvider {
         }
 
         if(addingIdx > -1){
-          console.log('the adding',addingIdx, conver);
+          ////console.log('the adding',addingIdx, conver);
 
-          if(conver[addingIdx].conversations.length >= 5){
+          if(conver[addingIdx].conversations.length >= 20){
             conver[addingIdx].conversations.splice(0,1);
           }
 
@@ -199,7 +199,7 @@ export class ConverstationCoreProvider {
           groupInit.conversations = [];
           groupInit.conversations.push(conversation);
           conver.push(groupInit);
-          console.log('pushed', conver, conversation);
+          ////console.log('pushed', conver, conversation);
         }
 
 

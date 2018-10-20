@@ -14,27 +14,28 @@
 <ion-content>
 
   <ion-searchbar
+  
   [(ngModel)]="myInput"
   [showCancelButton]="shouldShowCancel"
   (ionInput)="onInput($event)"
   (ionCancel)="onCancel($event)" [formControl]="searchBar">
 </ion-searchbar>
     
-   <div  list *ngIf="!contacts || searching">
+   <div   list *ngIf="!contacts || searching">
      <div no-lines no-detail ion-item>
       <ion-spinner  style="display:block;margin:auto" name="ios-small"></ion-spinner>
       <p text-center style="color:gray">Reading Contacts</p>
       </div>
     </div>
 
-    <ion-list *ngIf="contacts" >
-        <ion-item  item-content (click)="toggle($event,$index)"  *ngFor="let person of contacts; let $index = index;">
+    <ion-list  *ngIf="contacts" >
+        <ion-item  item-content (click)="toggle($event,$index)"  *ngFor="let person of items; let $index = index;">
            
                 
-                <h2 style="font-weight:bold" >{{  person.name.formatted || person.formatted || person.name}} </h2>
+                <h2 style="font-weight:bold" ><span style="color:gainsboro">{{$index + 1}})&nbsp;</span>{{  person.name.formatted || person.formatted || person.name}} </h2>
                 <button  ion-button icon-only clear item-right >
-                    <ion-icon  *ngIf="expandingList !== $index" color="light" name="checkmark-circle-outline"></ion-icon>
-                    
+                    <ion-icon  *ngIf="(expandingList !== $index) && (isContactsSelected($index) <= -1)" color="light" name="checkmark-circle-outline"></ion-icon>
+                    <ion-icon  *ngIf="(expandingList !== $index) && (isContactsSelected($index) > -1)" color="light" name="checkmark-circle"></ion-icon>
                   </button>
                 
 
@@ -79,6 +80,17 @@
             
             
         </ion-item>
+
+        <ion-item *ngIf="!items || items.length <= 0">
+              <h4>contacts not found</h4>
+        </ion-item>
       
       </ion-list>
+
+      <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+          <ion-infinite-scroll-content
+      loadingSpinner="ios-small"
+      loadingText="loading..">
+    </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
 </ion-content>

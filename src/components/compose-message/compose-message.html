@@ -29,6 +29,10 @@
             <button (click)="showGroupSelection($event)" full ion-button clear>Select Group</button>
         </ion-item>
 
+        <ion-item *ngIf="conversationContact && conversationContact.length > 0" >
+            <button (click)="showSelectContacts()" full ion-button clear>Add/Remove Contacts</button>
+        </ion-item>
+
         <!-- *ngIf="conversationContact && conversationContact.length > 0" -->
         <ion-item  >
             <button (click)="showTemplateSelection($event)" full ion-button clear>Select Template</button>

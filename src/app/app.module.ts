@@ -28,6 +28,7 @@ import { TemplatesPageModule } from '../pages/templates/templates.module';
 import { HttpClientModule } from '@angular/common/http';
 import { TemplatesManagerProvider } from '../providers/templates-manager/templates-manager';
 import { GroupsPageModule } from '../pages/groups/groups.module';
+import { PreferenceProvider } from '../providers/preference/preference';
 @NgModule({
   declarations: [
     MyApp,
@@ -68,7 +69,8 @@ import { GroupsPageModule } from '../pages/groups/groups.module';
     Contacts,Contact,
     GroupmanagerProvider,
     SMS,
-    TemplatesManagerProvider
+    TemplatesManagerProvider,
+    PreferenceProvider
     
   ]
 })

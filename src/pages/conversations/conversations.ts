@@ -59,8 +59,10 @@ export class ConversationsPage {
   refreshData(){
     this.groupManager.getGroups().then(function(groups){
       this.groups = JSON.parse(groups);
-
+      if(groups){
       this.recentGroupList = this.groups.length > 10 ? this.groups.slice(this.groups.length - 10 , this.groups.length).reverse() : this.groups.reverse();
+      
+      }
     }.bind(this));
 
     this.conversationP.getConversations().then(function(conv){
@@ -78,11 +80,11 @@ export class ConversationsPage {
 
   showConverstaionDetails(idx){
 
-    ////console.log('ban',(this.groups.length - 1) + parseInt(idx));
+    //////console.log('ban',(this.groups.length - 1) + parseInt(idx));
     idx = (this.groups.length -1) - idx;//this.recentGroupList.length <= 10 ?  ((this.recentGroupList.length -1 ) - (parseInt(idx))) : ((this.groups.length - 1) + parseInt(idx)) ;
-    //console.log('parsing inde',idx);
+    ////console.log('parsing inde',idx);
     this.conversationDetailsPage = this.modalController.create(ConversationDetailsPage, {groupId : idx}, {cssClass : 'conversationDetailsModal'});
-    //console.log(idx);
+    ////console.log(idx);
     this.conversationDetailsPage.onDidDismiss(function(data){
         this.refreshData();
     }.bind(this));
@@ -101,7 +103,7 @@ export class ConversationsPage {
 
   showMessageComposerWithId(group){
       this.groupManager.getIdxByName(group).then(function(stat){
-        console.log(stat);
+        //console.log(stat);
         if(stat >= 0){
           let m = this.modalController.create(ComposeMessageComponent,{groupId:stat},{cssClass: 'messageComposerComponent'});
           m.onDidDismiss(function(){

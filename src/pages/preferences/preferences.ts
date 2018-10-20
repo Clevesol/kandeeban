@@ -3,7 +3,8 @@ import { IonicPage, NavController, NavParams, ModalController, AlertController }
 import { TemplatesManagerProvider } from '../../providers/templates-manager/templates-manager';
 import { TemplatesPage } from '../templates/templates';
 import { ConverstationCoreProvider } from '../../providers/converstation-core/converstation-core';
-
+import {Storage} from '@ionic/storage';
+import { PreferenceProvider } from '../../providers/preference/preference';
 
 /**
  * Generated class for the PreferencesPage page.
@@ -26,7 +27,14 @@ export class PreferencesPage {
      public navParams: NavParams,
      private model:ModalController,
      private converCore:ConverstationCoreProvider,
-     private alert:AlertController) {
+     private alert:AlertController,
+     private storage:Storage,
+     private preference:PreferenceProvider
+     ) {
+
+      this.preference.getPreference_los().then(function(data){
+        this.syncOnStart = data ? true : false;
+      }.bind(this));
 
   }
 
@@ -49,6 +57,13 @@ export class PreferencesPage {
       }.bind(this)}
     ]
     }).present();
+  }
+
+
+  private syncOnStart:boolean;
+
+  toggleVal(){
+    this.preference.setPreference_los(this.syncOnStart);
   }
 
 }

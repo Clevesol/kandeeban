@@ -38,7 +38,9 @@ export class GroupAutoComponent {
     this.selectedList = this.navParams.get("data");
     this.searchBar = new FormControl();
 
-    // this.cont.find(["displayName", "phoneNumbers"],{multiple:true}).then(function(contactlist){
+
+    console.log('finding contact list');
+    // this.cont.find(["displayName"]).then(function(contactlist){
     //     console.log(contactlist);
     //     this.contacts = contactlist;
     // }.bind(this));
@@ -48,6 +50,7 @@ export class GroupAutoComponent {
       this.conversations.getContacts().then(function(con){
         this.contacts = con;
         this.duplicates = this.contacts;
+        this.items = this.contacts.slice(0, this.listLength);
       }.bind(this));
     }else{
       // console.log(data);
@@ -98,13 +101,13 @@ export class GroupAutoComponent {
 
     
     let selectIdx = this.inSelection(idx);
-    console.log('toggling ', idx, this.selectedList,selectIdx);
+    
     if(selectIdx >= 0){
-      this.selectedList.pop(selectIdx);
+      this.selectedList.splice(selectIdx,1);
     }else{
       let contact = this.contacts[this.expandingList].phoneNumbers[idx];
       contact.name = this.contacts[this.expandingList].name || this.contacts[this.expandingList].name.formatted;
-      console.log('pushing ', this.selectedList, contact);
+      contact.id =  this.contacts[this.expandingList].id || -1;
       this.selectedList.push(contact);
     }
       // var index = this.selectedList.indexOf(parseInt(this.contacts[this.expandingList].phoneNumbers[idx].value));
@@ -128,7 +131,7 @@ export class GroupAutoComponent {
   inSelection(i){
       let contact = this.contacts[this.expandingList].phoneNumbers[i];
       for(let chkIdx = 0; chkIdx < this.selectedList.length; chkIdx++){
-        console.log('cheking ', contact.value, this.selectedList[chkIdx].value);
+        
         if(contact.value === this.selectedList[chkIdx].value){
             return chkIdx;
         }
@@ -138,8 +141,15 @@ export class GroupAutoComponent {
       // return (this.expandingList >= 0) && this.selectedList.includes(parseInt(this.contacts[this.expandingList].phoneNumbers[i].value));
   }
 
-  isContactsSelected(index){
+  isContactsSelected(i){
+   // let contact = this.contacts[i];
+    for(let chkIdx = 0; chkIdx < this.selectedList.length; chkIdx++){
       
+      if(this.contacts[i].id === this.selectedList[chkIdx].id){
+          return chkIdx;
+      }
+    }
+    return -1;
   }
  
   private searching = false;
@@ -155,7 +165,7 @@ export class GroupAutoComponent {
   }
 
   setFilteredItems(){
-  	this.contacts = this.duplicates.filter(function(item){
+  	this.items = this.duplicates.filter(function(item){
             console.log(typeof item.name.formatted);
 						return item.name && ((item.name.formatted+ "").toLowerCase()).indexOf(this.myInput.toLowerCase()) > -1;
 				}.bind(this));
@@ -167,8 +177,21 @@ export class GroupAutoComponent {
       this.conversations.getContacts().then(function(con){
         this.contacts = con;
         this.duplicates = con;
+        
       }.bind(this));
     }
+  }
+
+
+  private items = [];
+  private  listLength = 30;
+
+  doInfinite($event){
+    setTimeout(function(){
+    let startIdx = this.items.length === 0 ? 0 : this.items.length;
+      this.items = this.items.concat(this.contacts.slice(startIdx, this.items.length + this.listLength));
+      $event.complete();
+  }.bind(this), 120);
   }
  
 

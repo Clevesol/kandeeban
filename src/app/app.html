@@ -1,18 +1,32 @@
 <ion-nav [root]="rootPage"></ion-nav>
-<ion-footer *ngIf="2 === 3">
+<ion-footer *ngIf="syncing">
 
+        <!-- <ion-spinner style="position:initial;"  name="ios-small"></ion-spinner>
+    <p>Syncing Contacts</p> -->
+
+    <ion-toolbar>
    
-   <ion-navbar color="secondary">
-    <ion-buttons end>
-        <button ion-button clear>
-           Minimize
+        <ion-row>
+                <ion-col col-1>
+
+                </ion-col>
+                <ion-col  col-1>
+                        <ion-spinner style="position:initial;"  name="ios-small"></ion-spinner>
+                </ion-col>
+            <ion-col col-9>
+                    <p style="padding-left:3%">
+                            Syncing Contacts
+                    </p>
+            </ion-col>
+           
+        </ion-row>
+            
+            
+    
+    <!-- <ion-buttons end>
+        <button ion-button icon-only>
+            <ion-icon name="close"></ion-icon>
         </button>
-    </ion-buttons>
-     
-       <h3  text-center>Sending SMS</h3>
-       <progress-bar [progress]="30" [color]="'#488aff'">
-        </progress-bar>
-        <p text-center>30 of 100</p>
-   </ion-navbar>
-  
+    </ion-buttons> -->
+    </ion-toolbar>
 </ion-footer>

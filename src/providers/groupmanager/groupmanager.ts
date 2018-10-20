@@ -27,7 +27,7 @@ export class GroupmanagerProvider {
 
   saveGroups(){
     this.storage.set(GROUP_IDENTIFIER, JSON.stringify(this.groups)).then((data)=> {
-      console.log("saved groups ", JSON.stringify(this.groups));
+      //console.log("saved groups ", JSON.stringify(this.groups));
       this.toast.create({message: "groups updated", duration: 700, position:'bottom'}).present();
 
     });
@@ -56,7 +56,7 @@ export class GroupmanagerProvider {
         this.groups = JSON.parse(groupsData);
       }
       
-      console.log('adding group',JSON.stringify(this.groups));
+      //console.log('adding group',JSON.stringify(this.groups));
       this.groups.push(group);
       this.saveGroups();
     }.bind(this));
@@ -67,7 +67,7 @@ export class GroupmanagerProvider {
     this.getGroups().then(function(groupsGet){
       this.groups = JSON.parse(groupsGet);
         this.groups.splice(idx,1);
-        console.log('removed', this.groups);
+        //console.log('removed', this.groups);
         this.saveGroups();
     }.bind(this));
     
@@ -97,7 +97,7 @@ export class GroupmanagerProvider {
   }
 
   getIdxByName(name){
-    console.log(name);
+    //console.log(name);
     return new Promise(function(resolve){
       this.getGroups().then(function(groups){
         
@@ -105,7 +105,7 @@ export class GroupmanagerProvider {
         let r = -1;
         if(groups){
           for(let t= 0; t < groups.length;t++){
-            //console.log('cheking ', groups[t].name+"" ,name+"");
+            ////console.log('cheking ', groups[t].name+"" ,name+"");
               if(groups[t].name+"" === name+""){
                 r = t;
                 break;

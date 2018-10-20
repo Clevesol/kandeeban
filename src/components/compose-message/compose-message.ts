@@ -6,6 +6,7 @@ import { SMS } from '@ionic-native/sms';
 import { GroupSelectionComponent } from '../group-selection/group-selection';
 import { ConverstationCoreProvider } from '../../providers/converstation-core/converstation-core';
 import { TemplatesPage } from '../../pages/templates/templates';
+import { GroupAutoComponent } from '../group-auto/group-auto';
 
 /**
  * Generated class for the ComposeMessageComponent component.
@@ -111,6 +112,18 @@ export class ComposeMessageComponent {
       this.todo.name = data;
     }.bind(this));
     mod.present();
+  }
+
+
+
+  showSelectContacts(){
+    let contactListComponent = this.modalController.create(GroupAutoComponent,{data: this.conversationContact},{});
+    contactListComponent.onDidDismiss(function(selectedList){
+      if(selectedList && selectedList.length > 0){
+        this.conversationContact = selectedList;
+      }
+    }.bind(this));
+    contactListComponent.present();
   }
 
 }

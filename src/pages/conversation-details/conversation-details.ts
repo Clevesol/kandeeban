@@ -142,6 +142,7 @@ export class ConversationDetailsPage {
       if(selectedList && selectedList.length > 0){
         this.group.contacts = selectedList;
         this.groupManager.updateGroupContacts(this.currentGroup, this.group.contacts);
+        this.refreshData();
       }
     }.bind(this));
     contactListComponent.present();

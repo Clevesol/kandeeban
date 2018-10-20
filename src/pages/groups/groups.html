@@ -14,12 +14,12 @@
 
 
 <ion-content >
-    <ion-toolbar>
+    <ion-toolbar style="position:fixed">
         <ion-buttons start>
           <button (click)="showCreateGroup()" ion-button item-end>Create Group</button>
         </ion-buttons>
       </ion-toolbar>
-    <ion-list padding>
+    <ion-list >
         <ion-list-header>
             All Groups
             <button *ngIf="groups" clear item-end color="gray">
