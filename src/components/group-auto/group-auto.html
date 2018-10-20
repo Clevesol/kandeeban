@@ -3,9 +3,9 @@
     <ion-navbar color="light">
       <ion-title *ngIf="selectedList.length <= 0" style="font-weight:bolder">Select Contacts</ion-title>
       <ion-title *ngIf="selectedList.length > 0" style="font-weight:bolder">{{selectedList.length}} Contact(s) Selected</ion-title>
-      <ion-buttons start>
-        <button style="color:white" (click)="closeMe()" ion-button clear>Cancel</button>
-      </ion-buttons>
+      <!-- <ion-buttons start>
+        <button style="color:white" (click)="closeMe()" ion-button clear>Back</button>
+      </ion-buttons> -->
       <ion-buttons end>
           <button (click)="done()" style="color:white" ion-button clear>Done</button>
         </ion-buttons>
@@ -13,9 +13,14 @@
   </ion-header>
 <ion-content>
 
+  <ion-searchbar
+  [(ngModel)]="myInput"
+  [showCancelButton]="shouldShowCancel"
+  (ionInput)="onInput($event)"
+  (ionCancel)="onCancel($event)" [formControl]="searchBar">
+</ion-searchbar>
     
-    
-   <div  list *ngIf="!contacts">
+   <div  list *ngIf="!contacts || searching">
      <div no-lines no-detail ion-item>
       <ion-spinner  style="display:block;margin:auto" name="ios-small"></ion-spinner>
       <p text-center style="color:gray">Reading Contacts</p>
@@ -46,8 +51,8 @@
                     <button (click)="toggleNumber(num)" *ngFor="let pnumber of person.phoneNumbers;let num = index;"  ion-item no-lines detail-none >
                       {{pnumber.value}}  
 
-                      <ion-icon item-start *ngIf="inSelection(num);" color="light" name="checkmark-circle"></ion-icon>
-                      <ion-icon item-start *ngIf="!inSelection(num);" color="light" name="checkmark-circle-outline"></ion-icon>
+                      <ion-icon item-start *ngIf="inSelection(num) > -1;" color="light" name="checkmark-circle"></ion-icon>
+                      <ion-icon item-start *ngIf="inSelection(num) <= -1;" color="light" name="checkmark-circle-outline"></ion-icon>
                       <ion-icon item-start *ngIf="pnumber.type === 'home'" color="gray" name="home"></ion-icon>
                       <ion-icon item-start *ngIf="pnumber.type === 'work'" color="gray" name="beaker"></ion-icon>
                       <ion-icon item-start *ngIf="pnumber.type === 'mobile'" color="gray" name="phone-portrait"></ion-icon>

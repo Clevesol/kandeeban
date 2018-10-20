@@ -13,7 +13,12 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content >
+    <ion-toolbar>
+        <ion-buttons start>
+          <button (click)="showCreateGroup()" ion-button item-end>Create Group</button>
+        </ion-buttons>
+      </ion-toolbar>
     <ion-list padding>
         <ion-list-header>
             All Groups
@@ -45,14 +50,6 @@
   
   
             <ion-item-options>
-              <button ion-button color="light" icon-start>
-                <ion-icon name="ios-more"></ion-icon>
-                More
-              </button>
-              <button ion-button color="primary" icon-start>
-                <ion-icon name="text"></ion-icon>
-                Text
-              </button>
               <button (click)="removeGroup(idx)" ion-button color="danger" icon-start>
                 <ion-icon name="close"></ion-icon>
                 Remove

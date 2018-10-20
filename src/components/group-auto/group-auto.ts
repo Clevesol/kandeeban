@@ -3,6 +3,8 @@ import { ViewController, NavParams } from 'ionic-angular';
 import { ConverstationCoreProvider } from '../../providers/converstation-core/converstation-core';
 import { Contacts, Contact, ContactName } from '@ionic-native/contacts';
 import { Group } from '../../objs/group';
+import { FormControl } from '@angular/forms';
+import 'rxjs/add/operator/debounceTime';
 
 /**
  * Generated class for the GroupAutoComponent component.
@@ -17,14 +19,24 @@ import { Group } from '../../objs/group';
 export class GroupAutoComponent {
 
    private contacts:Array<any>;
+   private duplicates:Array<any>;
+
   private group:Group;
+  private myInput;
+  private shouldShowCancel = true;
+  private searchBar;
 
   // private contacts;
 
-  constructor(private conversations:ConverstationCoreProvider,private viewCtrl:ViewController,private cont:Contacts, private navParams:NavParams) {
+  constructor(private conversations:ConverstationCoreProvider,
+    private viewCtrl:ViewController
+    ,private cont:Contacts,
+    
+     private navParams:NavParams) {
 
 
     this.selectedList = this.navParams.get("data");
+    this.searchBar = new FormControl();
 
     // this.cont.find(["displayName", "phoneNumbers"],{multiple:true}).then(function(contactlist){
     //     console.log(contactlist);
@@ -35,6 +47,7 @@ export class GroupAutoComponent {
     if(this.conversations.isPlatformSupportedByMe()){
       this.conversations.getContacts().then(function(con){
         this.contacts = con;
+        this.duplicates = this.contacts;
       }.bind(this));
     }else{
       // console.log(data);
@@ -46,9 +59,7 @@ export class GroupAutoComponent {
   private selectedList;
 
   done(){
-    console.log(this.selectedList);
-    this.closeMe();
-
+    this.viewCtrl.dismiss(this.selectedList);
   }
 
   private expandingList:any = false;
@@ -64,11 +75,19 @@ export class GroupAutoComponent {
   }
 
   ionViewDidLoad(){
-    console.log(this.expandingList);
+    this.searchBar.valueChanges.debounceTime(700).subscribe(function(search){
+    	this.searching = false;
+    	if(this.myInput.length > 0){
+	    	this.setFilteredItems();
+    	}else{
+    		this.refreshData();
+    	}
+    }.bind(this));
   }
 
   closeMe(){
-    this.viewCtrl.dismiss(this.selectedList);
+    this.selectedList = [];
+    this.viewCtrl.dismiss([]);
   }
 
   toggleSection(i) {
@@ -77,9 +96,10 @@ export class GroupAutoComponent {
 
   toggleNumber(idx){
 
+    
     let selectIdx = this.inSelection(idx);
-
-    if(selectIdx && selectIdx >= 0){
+    console.log('toggling ', idx, this.selectedList,selectIdx);
+    if(selectIdx >= 0){
       this.selectedList.pop(selectIdx);
     }else{
       let contact = this.contacts[this.expandingList].phoneNumbers[idx];
@@ -108,12 +128,12 @@ export class GroupAutoComponent {
   inSelection(i){
       let contact = this.contacts[this.expandingList].phoneNumbers[i];
       for(let chkIdx = 0; chkIdx < this.selectedList.length; chkIdx++){
-
+        console.log('cheking ', contact.value, this.selectedList[chkIdx].value);
         if(contact.value === this.selectedList[chkIdx].value){
             return chkIdx;
         }
       }
-      return false;
+      return -1;
       //console.log(i, this.selectedList, (this.contacts[this.expandingList].phoneNumbers[i].value));
       // return (this.expandingList >= 0) && this.selectedList.includes(parseInt(this.contacts[this.expandingList].phoneNumbers[i].value));
   }
@@ -122,6 +142,34 @@ export class GroupAutoComponent {
       
   }
  
+  private searching = false;
+
+  onInput($event){
+    this.searching = true;
+    this.setFilteredItems();
+  }
+
+  onCancel($event){
+    this.searching = false;
+    this.refreshData();
+  }
+
+  setFilteredItems(){
+  	this.contacts = this.duplicates.filter(function(item){
+            console.log(typeof item.name.formatted);
+						return item.name && ((item.name.formatted+ "").toLowerCase()).indexOf(this.myInput.toLowerCase()) > -1;
+				}.bind(this));
+  }
+
+
+  refreshData(){
+    if(this.conversations.isPlatformSupportedByMe()){
+      this.conversations.getContacts().then(function(con){
+        this.contacts = con;
+        this.duplicates = con;
+      }.bind(this));
+    }
+  }
  
 
 }

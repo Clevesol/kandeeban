@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, AlertController, ToastController } from 'ionic-angular';
 import { ConversationDetailsPage } from '../conversation-details/conversation-details';
 import { ComposeMessageComponent } from '../../components/compose-message/compose-message';
 import { CreateGroupComponent } from '../../components/create-group/create-group';
@@ -38,7 +38,8 @@ export class ConversationsPage {
     public navCtrl: NavController,
      public navParams: NavParams, 
     private modalController:ModalController,
-    private conversationP:ConverstationCoreProvider) {
+    private conversationP:ConverstationCoreProvider,
+    private toast:ToastController) {
     
    this.refreshData();
    
@@ -70,6 +71,8 @@ export class ConversationsPage {
 
   ionViewDidEnter(){
     this.refreshData();
+
+    
   }
 
 
@@ -87,8 +90,29 @@ export class ConversationsPage {
   }
 
   showMessageComposer(){
-      this.modalController.create(ComposeMessageComponent,{},{cssClass: 'messageComposerComponent'})
-      .present();
+      let m = this.modalController.create(ComposeMessageComponent,{},{cssClass: 'messageComposerComponent'})
+      ;
+      m.onDidDismiss(function(){
+        this.refreshData();
+      }.bind(this));
+
+      m.present();
+  }
+
+  showMessageComposerWithId(group){
+      this.groupManager.getIdxByName(group).then(function(stat){
+        console.log(stat);
+        if(stat >= 0){
+          let m = this.modalController.create(ComposeMessageComponent,{groupId:stat},{cssClass: 'messageComposerComponent'});
+          m.onDidDismiss(function(){
+            this.refreshData();
+          }.bind(this));
+          m.present();
+
+        }else{
+          this.toast.create({message:'something went wrong', duration:800, position:'top'}).present();
+        }
+      }.bind(this));
   }
 
   showCreateGroup(){

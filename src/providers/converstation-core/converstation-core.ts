@@ -228,4 +228,9 @@ export class ConverstationCoreProvider {
 };
 
 
+  getContactsFiltered(){
+    
+  }
+
+
 }

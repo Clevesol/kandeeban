@@ -83,10 +83,12 @@ export class GroupmanagerProvider {
       }
       this.getGroups().then(function(g){
         g = JSON.parse(g);
-        for(let t = 0; t < g.length;t++){
-          if(g[t].name === name){
-            resolve(true);
-            break;
+          if(g){
+          for(let t = 0; t < g.length;t++){
+            if(g[t].name === name){
+              resolve(true);
+              break;
+            }
           }
         }
         resolve(false);
@@ -94,6 +96,25 @@ export class GroupmanagerProvider {
     }.bind(this));
   }
 
-  
+  getIdxByName(name){
+    console.log(name);
+    return new Promise(function(resolve){
+      this.getGroups().then(function(groups){
+        
+        groups = JSON.parse(groups);
+        let r = -1;
+        if(groups){
+          for(let t= 0; t < groups.length;t++){
+            //console.log('cheking ', groups[t].name+"" ,name+"");
+              if(groups[t].name+"" === name+""){
+                r = t;
+                break;
+              }
+          }
+        }
+        resolve(r);
+      }.bind(this))
+    }.bind(this));
+  }
 
 }

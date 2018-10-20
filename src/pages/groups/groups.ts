@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, ModalController, AlertController }
 import { GroupmanagerProvider } from '../../providers/groupmanager/groupmanager';
 import { ConverstationCoreProvider } from '../../providers/converstation-core/converstation-core';
 import { CreateGroupComponent } from '../../components/create-group/create-group';
+import { ConversationDetailsPage } from '../conversation-details/conversation-details';
 
 /**
  * Generated class for the GroupsPage page.
@@ -55,13 +56,15 @@ export class GroupsPage {
   removeGroup(idx){
       let deleteAlert = this.alert.create(
         {message: 'Delete Group and converstaions ??', title:'Delete ?' , 
-        buttons:[{text:"Delete", 
+        buttons:[ {
+                  text : 'Cancel',
+                },
+                {text:"Delete", 
                 handler:function(){
                   this.groupsM.removeGroup(idx);
-                }.bind(this)}, {
-                  text : 'Cancel',
-                }
-                ]});
+                }.bind(this)}
+                ]},
+                );
 
                 deleteAlert.onDidDismiss(function(){
                     this.refreshData();
@@ -86,6 +89,21 @@ export class GroupsPage {
 
   ionViewDidEnter(){
     this.refreshData();
+  }
+
+  private conversationDetailsPage;
+
+  showConverstaionDetails(idx){
+
+    ////console.log('ban',(this.groups.length - 1) + parseInt(idx));
+    //idx = (this.groups.length -1) - idx;//this.recentGroupList.length <= 10 ?  ((this.recentGroupList.length -1 ) - (parseInt(idx))) : ((this.groups.length - 1) + parseInt(idx)) ;
+    //console.log('parsing inde',idx);
+    this.conversationDetailsPage = this.modalController.create(ConversationDetailsPage, {groupId : idx}, {cssClass : 'conversationDetailsModal'});
+    //console.log(idx);
+    this.conversationDetailsPage.onDidDismiss(function(data){
+        this.refreshData();
+    }.bind(this));
+    this.conversationDetailsPage.present();
   }
 
 }

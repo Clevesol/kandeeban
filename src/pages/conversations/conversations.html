@@ -70,13 +70,13 @@
 
 
           <ion-item-sliding *ngFor="let conv of recentList; let $index = index">
-              <ion-item >
+              <ion-item (click)="showMessageComposerWithId(conv.group)" >
                 <ion-avatar item-start>
                   <img src="https://raw.githubusercontent.com/ionic-team/ionic-preview-app/master/src/assets/img/venkman.jpg">
                 </ion-avatar>
                 <h2>{{conv.group}}</h2>
-                <h3><span style="font-weight:bold">{{conv.conversations[0].contacts.length}}</span> </h3>
-                <p>{{conv.conversations[0].message}}</p>
+                <h3><span style="font-weight:bold">{{conv.conversations[0].contacts.length}}</span> contacts</h3>
+                <p>{{conv.conversations[conv.conversations.length - 1].message}}</p>
               </ion-item>
             </ion-item-sliding>
 
