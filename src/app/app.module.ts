@@ -4,7 +4,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import {SMS} from '@ionic-native/sms';
-
+import {SQLite} from '@ionic-native/sqlite';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -29,6 +29,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { TemplatesManagerProvider } from '../providers/templates-manager/templates-manager';
 import { GroupsPageModule } from '../pages/groups/groups.module';
 import { PreferenceProvider } from '../providers/preference/preference';
+import { DbProvider } from '../providers/db/db';
 @NgModule({
   declarations: [
     MyApp,
@@ -66,11 +67,14 @@ import { PreferenceProvider } from '../providers/preference/preference';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ConverstationCoreProvider,
-    Contacts,Contact,
+    Contacts,
+    Contact,
     GroupmanagerProvider,
     SMS,
     TemplatesManagerProvider,
-    PreferenceProvider
+    PreferenceProvider,
+    SQLite,
+    DbProvider
     
   ]
 })

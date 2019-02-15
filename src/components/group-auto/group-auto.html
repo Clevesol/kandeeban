@@ -13,12 +13,20 @@
   </ion-header>
 <ion-content>
 
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content>
+          refershing
+        </ion-refresher-content>
+    </ion-refresher>
+
   <ion-searchbar
   
   [(ngModel)]="myInput"
   [showCancelButton]="shouldShowCancel"
   (ionInput)="onInput($event)"
-  (ionCancel)="onCancel($event)" [formControl]="searchBar">
+  (ionCancel)="onCancel($event)" [formControl]="searchBar"
+  debounce="600"
+  >
 </ion-searchbar>
     
    <div   list *ngIf="!contacts || searching">
@@ -30,58 +38,56 @@
 
     <ion-list  *ngIf="contacts" >
         <ion-item  item-content (click)="toggle($event,$index)"  *ngFor="let person of items; let $index = index;">
-           
+          <!-- <ion-avatar item-start>
+          </ion-avatar> -->
                 
-                <h2 style="font-weight:bold" ><span style="color:gainsboro">{{$index + 1}})&nbsp;</span>{{  person.name.formatted || person.formatted || person.name}} </h2>
+                <h4 style="font-weight:bold" ><span style="color:gainsboro">{{$index + 1}})&nbsp;</span>{{person.name.formatted}} </h4>
                 <button  ion-button icon-only clear item-right >
-                    <ion-icon  *ngIf="(expandingList !== $index) && (isContactsSelected($index) <= -1)" color="light" name="checkmark-circle-outline"></ion-icon>
-                    <ion-icon  *ngIf="(expandingList !== $index) && (isContactsSelected($index) > -1)" color="light" name="checkmark-circle"></ion-icon>
+                    <ion-icon  *ngIf="person.selected <= 0" color="light" name="checkmark-circle-outline"></ion-icon>
+                    <ion-icon  *ngIf="person.selected > 0" color="light" name="checkmark-circle"></ion-icon>
+                    <!-- <ion-icon item-start *ngIf="person.cNtype === 'home'" color="gray" name="home"></ion-icon>
+                    <ion-icon item-start *ngIf="person.cNtype === 'work'" color="gray" name="beaker"></ion-icon>
+                    <ion-icon item-start *ngIf="person.cNtype === 'mobile'" color="gray" name="phone-portrait"></ion-icon>
+                    <ion-icon item-start *ngIf="person.cNtype !== 'home' && person.cNtype !== 'mobile' && person.cNtype !== 'work'" color="gray" name="card"></ion-icon> -->
                   </button>
                 
 
-                <button  ion-button icon-only clear item-right >
-                  <ion-icon  *ngIf="expandingList !== $index" color="light" name="ios-arrow-down"></ion-icon>
-                  <ion-icon  *ngIf="expandingList === $index" color="light" name="ios-arrow-up"></ion-icon>
-                </button>
-                
-                <div  list *ngIf="expandingList === $index" >
-                  <!-- <div ion-item  *ngFor="let pnumber of person.phoneNumbers"> -->
-                    <!-- <h3>{{pnumber.value}}</h3> -->
-
-                    <!-- (click)="addClick();$event.stopPropagation();" -->
-                    <button (click)="toggleNumber(num)" *ngFor="let pnumber of person.phoneNumbers;let num = index;"  ion-item no-lines detail-none >
-                      {{pnumber.value}}  
-
-                      <ion-icon item-start *ngIf="inSelection(num) > -1;" color="light" name="checkmark-circle"></ion-icon>
-                      <ion-icon item-start *ngIf="inSelection(num) <= -1;" color="light" name="checkmark-circle-outline"></ion-icon>
-                      <ion-icon item-start *ngIf="pnumber.type === 'home'" color="gray" name="home"></ion-icon>
-                      <ion-icon item-start *ngIf="pnumber.type === 'work'" color="gray" name="beaker"></ion-icon>
-                      <ion-icon item-start *ngIf="pnumber.type === 'mobile'" color="gray" name="phone-portrait"></ion-icon>
-                      <ion-icon item-start *ngIf="pnumber.type !== 'home' && pnumber.type !== 'mobile' && pnumber !== 'work'" color="gray" name="card"></ion-icon>
+            
+                <div  list *ngIf="(expandingList === $index) && person.contactNumber" >
+                 
+                    <button   ion-item no-lines detail-none >
+                      {{person.contactNumber}}  
+                      <ion-icon item-start *ngIf="person.cNtype === 'home'" color="gray" name="home"></ion-icon>
+                      <ion-icon item-start *ngIf="person.cNtype === 'work'" color="gray" name="beaker"></ion-icon>
+                      <ion-icon item-start *ngIf="person.cNtype === 'mobile'" color="gray" name="phone-portrait"></ion-icon>
+                      <ion-icon item-start *ngIf="person.cNtype !== 'home' && person.cNtype !== 'mobile' && person.cNtype !== 'work'" color="gray" name="card"></ion-icon>
                     </button>
-                  <!-- </div> -->
+                  
                 </div>
 
-                <div list *ngIf="(expandingList === $index) && (!person.phoneNumbers || person.phoneNumbers.length <= 0)">
+                <div list *ngIf="(expandingList === $index) && (!person.phoneNumbers )">
                   <p list-item> no numbers</p>
                 </div>
                 
-                <!-- <ion-checkbox></ion-checkbox> -->
-          
-            <!-- <ion-list ion-content  >
-              <ion-item no-lines *ngFor="let pnumber of person.phoneNumbers">
-                <ion-label>
-                <h3 >{{pnumber.value}} <span style="color:gray">{{pnumber.type}}</span></h3>
-                </ion-label>
-                <ion-checkbox color="light"></ion-checkbox>
-              </ion-item>
-            </ion-list> -->
-
+              
+                <div  list *ngIf="(expandingList === $index) && person.phoneNumbers" >
+                 
+                  <button (tap)="toggleNumber($idx)" *ngFor="let p of person.phoneNumbers; let $idx = index"  ion-item no-lines detail-none >
+                    {{p.value}}  
+                    <ion-icon item-start *ngIf="p.type === 'home'" color="gray" name="home"></ion-icon>
+                    <ion-icon item-start *ngIf="p.type === 'work'" color="gray" name="beaker"></ion-icon>
+                    <ion-icon item-start *ngIf="p.type === 'mobile'" color="gray" name="phone-portrait"></ion-icon>
+                    <ion-icon item-start *ngIf="p.type !== 'home' && p.type !== 'mobile' && p.type !== 'work'" color="gray" name="card"></ion-icon>
+                    <ion-icon item-end *ngIf="p.selected" color="secondary" name="checkmark-circle"></ion-icon>
+                    <ion-icon item-end *ngIf="!p.selected" color="secondary" name="checkmark-circle-outline"></ion-icon>
+                  </button>
+                
+              </div>
             
             
         </ion-item>
 
-        <ion-item *ngIf="!items || items.length <= 0">
+        <ion-item *ngIf="(!items || items.length <= 0) && !searching">
               <h4>contacts not found</h4>
         </ion-item>
       

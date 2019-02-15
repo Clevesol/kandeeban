@@ -8,14 +8,17 @@
 
 <ion-content >
         <ion-list padding>
-            <button ion-item detail-none (click)="showTemplates()">Templates</button>
+            
             <button ion-item detail-none (click)="clearConversations()">Clear All Conversations</button>
+            <button ion-item detail-none (click)="syncContacts()">Sync Contacts</button>
+            <button ion-item detail-none (click)="showTemplates()">Templates</button>
             <!-- <ion-item>
                 <ion-toggle [(ngModel)]="syncOnStart" (ionChange)="toggleVal()" color="secondary" checked="true"></ion-toggle>
                 <ion-label>
                   Sync contacts on load
                 </ion-label>
             </ion-item> -->
+
         </ion-list>
 </ion-content>
 

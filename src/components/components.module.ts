@@ -8,6 +8,7 @@ import { SelectgroupsComponent } from './selectgroups/selectgroups';
 import { GroupSelectionComponent } from './group-selection/group-selection';
 import { GroupPopoverComponent } from './group-popover/group-popover';
 import { TemplatesManagerComponent } from './templates-manager/templates-manager';
+import { ContactListComponent } from './contact-list/contact-list';
 @NgModule({
 	declarations: [ComposeMessageComponent,
     CreateGroupComponent,
@@ -15,7 +16,8 @@ import { TemplatesManagerComponent } from './templates-manager/templates-manager
     SelectgroupsComponent,
     GroupSelectionComponent,
     GroupPopoverComponent,
-    TemplatesManagerComponent],
+    TemplatesManagerComponent,
+    ContactListComponent],
 	imports: [IonicModule],
 	exports: [ComposeMessageComponent,
     CreateGroupComponent,
@@ -23,14 +25,16 @@ import { TemplatesManagerComponent } from './templates-manager/templates-manager
     SelectgroupsComponent,
     GroupSelectionComponent,
     GroupPopoverComponent,
-    TemplatesManagerComponent],
+    TemplatesManagerComponent,
+    ContactListComponent],
     entryComponents:[
         ComposeMessageComponent,
         CreateGroupComponent,
         GroupAutoComponent,
         GroupSelectionComponent,
         GroupPopoverComponent,
-        TemplatesManagerComponent
+        TemplatesManagerComponent,
+        ContactListComponent
     ]
 })
 export class ComponentsModule {}

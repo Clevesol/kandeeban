@@ -49,7 +49,7 @@
 
     <ion-list  style="margin-top:11%;" padding>
         <ion-list-header>
-          Recent Conversations
+         <h3>Recent Conversations</h3>
         </ion-list-header>
 
         <!-- <h5 text-center *ngIf="!recentList || recentList.length <= 0">no recent converstaions</h5> -->
@@ -60,7 +60,7 @@
               <ion-col  col-8 offset-2>
                  
                       <div no-lines no-detail ion-item>
-                       <p text-center style="color:gray">No conversations yet.</p>
+                       <h2 text-center style="color:gray">No conversations yet.</h2>
                        <!-- <button full round color="secondary" (click)="showMessageComposer()" ion-button>Compose New &nbsp;<ion-icon name="text" ></ion-icon></button> -->
                        </div>
                     
@@ -71,9 +71,9 @@
 
           <ion-item-sliding *ngFor="let conv of recentList; let $index = index">
               <ion-item (click)="showMessageComposerWithId(conv.group)" >
-                <ion-avatar item-start>
+                <!-- <ion-avatar item-start>
                   <img src="https://raw.githubusercontent.com/ionic-team/ionic-preview-app/master/src/assets/img/venkman.jpg">
-                </ion-avatar>
+                </ion-avatar> -->
                 <h2>{{conv.group}}</h2>
                 <h3><span style="font-weight:bold">{{conv.conversations[0].contacts.length}}</span> contacts</h3>
                 <p>{{conv.conversations[conv.conversations.length - 1].message}}</p>
@@ -195,11 +195,11 @@
 
      
     
-      <ion-list >
+      <ion-list padding >
         <ion-list-header>
-          recent Groups
+          <h3>recent Groups</h3>
           <button *ngIf="groups" clear item-end color="gray">
-              {{recentGroupList.length}} groups
+              <h3>{{recentGroupList.length}} group(s)</h3>
           </button>
         </ion-list-header>
 
@@ -208,7 +208,7 @@
               <ion-col  col-6 offset-3>
                  
                       <div no-lines no-detail ion-item>
-                       <p text-center style="color:gray">No groups yet.</p>
+                       <h3 text-center style="color:gray">No groups yet.</h3>
                        <button full round color="secondary" (click)="showCreateGroup()" ion-button>Add group&nbsp;<ion-icon name="add-circle" ></ion-icon></button>
                        </div>
                     
@@ -218,23 +218,23 @@
     
         <ion-item-sliding *ngFor="let group of recentGroupList; let idx = index;">
             <ion-item (click)="showConverstaionDetails(idx)">
-              <ion-avatar item-start>
+              <!-- <ion-avatar item-start>
                 <img src="https://raw.githubusercontent.com/ionic-team/ionic-preview-app/master/src/assets/img/venkman.jpg">
-              </ion-avatar>
+              </ion-avatar> -->
               <h2>{{group.name}}</h2>
               <h3><span style="font-weight:bold">{{group.contacts.length}}</span> Contacts </h3>
             </ion-item>
   
   
             <ion-item-options>
-              <button ion-button color="light" icon-start>
+              <!-- <button ion-button color="light" icon-start>
                 <ion-icon name="ios-more"></ion-icon>
                 More
               </button>
               <button ion-button color="primary" icon-start>
                 <ion-icon name="text"></ion-icon>
                 Text
-              </button>
+              </button> -->
               <button (click)="removeGroup(idx)" ion-button color="danger" icon-start>
                 <ion-icon name="close"></ion-icon>
                 Remove

@@ -1,0 +1,38 @@
+<!-- Generated template for the ContactListComponent component -->
+<!-- <ion-grid>
+  <ion-row>
+    <ion-col col-9 offset-1> -->
+      <ion-list>
+        <ion-list-header>
+          Sent to
+        </ion-list-header>
+        <ion-item *ngFor="let person of contacts;">
+            <!-- <ion-icon item-start *ngIf="person.cNtype === 'home'" color="gray" name="home"></ion-icon>
+            <ion-icon item-start *ngIf="person.cNtype === 'work'" color="gray" name="beaker"></ion-icon>
+            <ion-icon item-start *ngIf="person.cNtype === 'mobile'" color="gray" name="phone-portrait"></ion-icon>
+            <ion-icon item-start *ngIf="person.cNtype !== 'home' && person.cNtype !== 'mobile' && person.cNtype !== 'work'" color="gray" name="card"></ion-icon> -->
+          <h3>{{person.name.formatted}}</h3>
+      
+          <!-- <h5 >{{person.contactNumber}}</h5> -->
+      
+          <h5 *ngFor="let p of person.phoneNumbers">
+            <span>
+                <ion-icon item-start *ngIf="p.type === 'home'" color="gray" name="home"></ion-icon>
+                <ion-icon item-start *ngIf="p.type === 'work'" color="gray" name="beaker"></ion-icon>
+                <ion-icon item-start *ngIf="p.type === 'mobile'" color="gray" name="phone-portrait"></ion-icon>
+                <ion-icon item-start *ngIf="p.type !== 'home' && p.type !== 'mobile' && p.type !== 'work'" color="gray" name="card"></ion-icon>
+            </span>
+            &nbsp;
+            {{p.value}}
+          <span>
+              <ion-icon item-end *ngIf="p.selected" color="secondary" name="checkmark-circle"></ion-icon>
+          </span>
+          </h5>
+        </ion-item>
+      </ion-list>
+    <!-- </ion-col>
+  </ion-row>
+</ion-grid> -->
+
+
+<button ion-button (click)="closeMe()" full clear color="primary" >Close</button>

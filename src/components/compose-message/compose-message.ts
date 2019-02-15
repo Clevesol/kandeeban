@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ConversationO } from '../../objs/conversations';
-import { ViewController, NavParams, ModalController, ToastController } from 'ionic-angular';
+import { LoadingController,ViewController, NavParams, ModalController, ToastController } from 'ionic-angular';
 import { GroupmanagerProvider } from '../../providers/groupmanager/groupmanager';
 import { SMS } from '@ionic-native/sms';
 import { GroupSelectionComponent } from '../group-selection/group-selection';
@@ -24,10 +24,11 @@ export class ComposeMessageComponent {
   private group;
 
   private conversationContact = [];
-  constructor(private modalController:ModalController,private viewChild:ViewController, navParams:NavParams,private  groupManager:GroupmanagerProvider, private sms:SMS, private toast:ToastController, private convestationProvider:ConverstationCoreProvider) {
+  private pW;
+  constructor(private lC:LoadingController,private modalController:ModalController,private viewChild:ViewController, navParams:NavParams,private  groupManager:GroupmanagerProvider, private sms:SMS, private toast:ToastController, private convestationProvider:ConverstationCoreProvider) {
 
     let groupId = navParams.get("groupId");
-    
+    this.pW = this.lC.create({content:'please wait..'});
     this.groupManager.getGroups().then(function(groupData){
       this.group = JSON.parse(groupData);
       if(parseInt(groupId)> -1){
@@ -38,6 +39,7 @@ export class ComposeMessageComponent {
 
         this.refreshContacts(groupId);
 
+       
 
         // for(let tt = 0; tt< this.group[groupId].contacts.length; tt++){
         //   this.conversationContact.push(this.group[groupId].contacts[tt].value+"");
@@ -54,19 +56,20 @@ export class ComposeMessageComponent {
 
   private refreshContacts(groupId){
     
-    
-    this.groupManager.getGroups().then(function(groupData){
-      this.group = JSON.parse(groupData);
-      console.log('parsed group', this.group);
-      if(parseInt(groupId)> -1){
-        console.log('groupID',groupId, this.group);
-        this.groupName = this.group[groupId].name;
-        for(let tt = 0; tt< this.group[groupId].contacts.length; tt++){
-          this.conversationContact.push(this.group[groupId].contacts[tt].value+"");
-        }
-      }
+    this.conversationContact = this.group[groupId].contacts;
+    this.groupName = this.group[groupId].name;
+    // this.groupManager.getGroups().then(function(groupData){
+    //   this.group = JSON.parse(groupData);
+    //   console.log('parsed group', this.group);
+    //   if(parseInt(groupId)> -1){
+    //     console.log('groupID',groupId, this.group);
+    //     this.groupName = this.group[groupId].name;
+    //     for(let tt = 0; tt< this.group[groupId].contacts.length; tt++){
+    //       this.conversationContact.push(this.group[groupId].contacts[tt]);
+    //     }
+    //   }
       
-    }.bind(this));
+    // }.bind(this));
   }
 
   closeMe(){
@@ -79,19 +82,54 @@ export class ComposeMessageComponent {
 
   sendSms(){
 
+    console.log(this.conversationContact, (this.todo? this.todo.name : "empty"));
+    
+    if(this.todo.name && this.todo.name.length > 0){
     
     if(this.conversationContact && this.conversationContact.length > 0){
       
-      this.convestationProvider.sendSms(this.conversationContact, this.todo.name).then(
-        (data)=>{
+      this.pW.present().then(function(){
+
+        var contL = [];
+        
+        for(var r = 0; r < this.conversationContact.length; r++){
+          for(var v = 0; v < this.conversationContact[r].phoneNumbers.length;v++){
+            if(this.conversationContact[r].phoneNumbers[v].selected){
+              contL.push(this.conversationContact[r].phoneNumbers[v].value+"");
+            }
+          }
+            // if(this.conversationContact[r].selected){
+            //   contL.push(this.conversationContact[r].value+"");
+            // }
+        }
+
+        
+
+        
+        console.log('sending sms to', contL);
+
+        this.convestationProvider.sendSms(contL, this.todo.name).then(
+          function(){
+            
+            this.closeMe();
+            this.convestationProvider.addToConverations(this.groupName, this.conversationContact, this.todo.name);
+          this.toast.create({message:'sms added to send list', position:'top', duration: 1000}).present();
+        }.bind(this), function(error){
           this.closeMe();
-          this.convestationProvider.addToConverations(this.groupName, this.conversationContact, this.todo.name);
-        this.toast.create({message:'sms added to send list', position:'top', duration: 1000}).present();
-      }, (error)=>{
-        this.toast.create({message:'sms send failed', position:'top', duration: 1000}).present();
-      });
+          this.toast.create({message:'sms sending cancelled', position:'top', duration: 1000}).present();
+        }.bind(this));
+
+        this.pW.dismiss();
+
+      }.bind(this));
+
+     
     }else{
       this.toast.create({message:'invalid contact list', position:'top', duration: 1000}).present();
+    }
+
+    }else{
+      this.toast.create({message: 'empty message cannot be sent'});
     }
   }
 
@@ -117,13 +155,19 @@ export class ComposeMessageComponent {
 
 
   showSelectContacts(){
-    let contactListComponent = this.modalController.create(GroupAutoComponent,{data: this.conversationContact},{});
+    let contactListComponent = this.modalController.create(GroupAutoComponent,{data: this.conversationContact, mode:true},{});
     contactListComponent.onDidDismiss(function(selectedList){
       if(selectedList && selectedList.length > 0){
         this.conversationContact = selectedList;
+        // for(var t = 0; t< selectedList.length;t++){
+        //   this.conversationContact.push(selectedList[t].contactNumber);
+        // }
+        
       }
     }.bind(this));
     contactListComponent.present();
   }
+
+ 
 
 }

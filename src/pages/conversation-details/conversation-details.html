@@ -47,7 +47,7 @@
 
   <ion-list padding *ngIf="!show && (!conversations || conversations.length <= 0)">
     <ion-item no-lines no-detail>
-      <p text-center color="gray">no converstation yet</p>
+      <h2 text-center color="gray">no converstation yet</h2>
       <!-- <button color="secondary" (click)="showCompose(currentGroup)" ion-button><ion-icon name="add"></ion-icon>compose new&nbsp;</button> -->
     </ion-item>
   </ion-list>
@@ -66,7 +66,7 @@
       <p>{{conv.message}}</p>
       <div class="pop-contact">
       </div>
-      <button ion-button clear full color="gray">{{conv.contacts.length}} contact(s)</button>
+      <button (click)="showListOfContacts(conv.contacts,$event)" ion-button clear full color="gray"><ion-icon name="contacts" item-start></ion-icon>{{conv.contacts.length}}</button>
     </div>
     
     </div>
@@ -84,8 +84,20 @@
 
     <ion-item-sliding *ngFor="let item of group.contacts; let $idx = index">
         <ion-item>
-            <h2>{{item.name.formatted}}</h2>
-            <h3>{{item.value}}</h3>
+            <h2><span style="color:gray">{{$idx+1}}).&nbsp;</span>&nbsp;{{item.name.formatted}}</h2>
+            <h3 *ngFor="let p of item.phoneNumbers">
+              <span>
+                  <ion-icon item-start *ngIf="p.type === 'home'" color="gray" name="home"></ion-icon>
+                  <ion-icon item-start *ngIf="p.type === 'work'" color="gray" name="beaker"></ion-icon>
+                  <ion-icon item-start *ngIf="p.type === 'mobile'" color="gray" name="phone-portrait"></ion-icon>
+                  <ion-icon item-start *ngIf="p.type !== 'home' && p.type !== 'mobile' && p.type !== 'work'" color="gray" name="card"></ion-icon>
+              </span>
+              &nbsp;
+              {{p.value}}
+            <span>
+                <ion-icon item-end *ngIf="p.selected" color="secondary" name="checkmark-circle"></ion-icon>
+            </span>
+            </h3>
         </ion-item>
         <ion-item-options side="right">
           <button (click)="removeContact($idx)" ion-button color="danger">

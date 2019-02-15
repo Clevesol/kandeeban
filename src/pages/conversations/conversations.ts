@@ -130,14 +130,14 @@ export class ConversationsPage {
 
   removeGroup(idx){
       let deleteAlert = this.alert.create(
-        {message: 'Delete Group and converstaions ??', title:'Delete ?' , 
-        buttons:[{text:"Delete", 
+        {message: 'Delete Group and converstaions ?', title:'Delete ?' , 
+        buttons:[ {
+                  text : 'Cancel',
+                },{text:"Delete", 
                 handler:function(){
                   idx = (this.groups.length -1) - idx;
                   this.groupManager.removeGroup(idx);
-                }.bind(this)}, {
-                  text : 'Cancel',
-                }
+                }.bind(this)}
                 ]});
 
                 deleteAlert.onDidDismiss(function(){

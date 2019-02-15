@@ -44,7 +44,7 @@ export class CreateGroupComponent {
 
 
   createGroup(){
-    console.log('cheking', this.newGroup.name);
+    console.log('cheking', this.newGroup);
     this.groupManager.checkExist(this.newGroup.name).then(function(res){
       console.log(res);
       if(res){

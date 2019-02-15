@@ -1,6 +1,6 @@
 import { Storage } from '@ionic/storage';
 import { Injectable } from '@angular/core';
-import { PREFERENCE_SYNC_ON_START } from '../global.constants';
+import { PREFERENCE_SYNC_ON_START, PREF_FIRST_BOOT } from '../global.constants';
 
 /*
   Generated class for the PreferenceProvider provider.
@@ -20,6 +20,14 @@ export class PreferenceProvider {
   }
   setPreference_los(val){
     this.storage.set(PREFERENCE_SYNC_ON_START, val);
+  }
+
+  isFirstBoot(){
+    return this.storage.get(PREF_FIRST_BOOT);
+  }
+
+  firstBooted(){
+    this.storage.set(PREF_FIRST_BOOT, true);
   }
 
 }

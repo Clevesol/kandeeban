@@ -66,4 +66,13 @@ export class PreferencesPage {
     this.preference.setPreference_los(this.syncOnStart);
   }
 
+
+  syncContacts(){
+    this.converCore.finalSynchronize();
+    // this.converCore.resetContactsCache();
+    // this.converCore.synchronizeContacts().then(function(data){
+    //   console.log('sync complete');
+    // });
+  }
+
 }

@@ -6,6 +6,7 @@ import { ConverstationCoreProvider } from '../../providers/converstation-core/co
 import { GroupPopoverComponent } from '../../components/group-popover/group-popover';
 import { GroupAutoComponent } from '../../components/group-auto/group-auto';
 import { text } from '@angular/core/src/render3/instructions';
+import { ContactListComponent } from '../../components/contact-list/contact-list';
 
 
 /**
@@ -68,6 +69,7 @@ export class ConversationDetailsPage {
   refreshData(){
     this.grpMngr.getGroups().then(function(gro){
       if(gro.length > 0){
+        console.log(this.group);
         //console.log("groups parsed ", JSON.parse(gro), this.currentGroup);
         this.group = JSON.parse(gro)[this.currentGroup];
         //console.log('this.group->',this.group);
@@ -75,7 +77,7 @@ export class ConversationDetailsPage {
 
         //console.log(this.conversations, this.currentGroup, this.group);
         this.conversationsP.getConversationsByGroup(this.group.name).then(function(data){
-        //console.log('the converstions ', data);
+        console.log('the converstions ', data);
         if(data !== null) this.conversations = data;
         //console.log(this.conversations);
         }.bind(this));
@@ -96,6 +98,7 @@ export class ConversationDetailsPage {
   private show=false;
 
   toggleShow(){
+    this.refreshData();
     this.show = !this.show;
   }
 
@@ -168,6 +171,10 @@ export class ConversationDetailsPage {
       console.log(data);
     }.bind(this));
     
+  }
+
+  showListOfContacts(contacts,evt){
+    this.pController.create(ContactListComponent,{'contacts':contacts},{}).present(evt);
   }
 
 }
