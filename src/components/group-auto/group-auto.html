@@ -2,7 +2,7 @@
 <ion-header>
     <ion-navbar color="light">
       <ion-title *ngIf="selectedList.length <= 0" style="font-weight:bolder">Select Contacts</ion-title>
-      <ion-title *ngIf="selectedList.length > 0" style="font-weight:bolder">{{selectedList.length}} Contact(s) Selected</ion-title>
+      <ion-title *ngIf="selectedList.selected > 0" style="font-weight:bolder">{{selectedList.length}} Contact(s) Selected</ion-title>
       <!-- <ion-buttons start>
         <button style="color:white" (click)="closeMe()" ion-button clear>Back</button>
       </ion-buttons> -->

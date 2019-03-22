@@ -429,17 +429,33 @@ export class ConverstationCoreProvider {
 
         this.storage.get(CONTACTS_CACHE).then(function(dataLol){
           var cont = JSON.parse(dataLol);
+          console.log(cont);
 
           if(!cont || (cont.length<=0)){
             this.getContacts().then(function(cs){
-              cs.sort((a,b)=>{return a.name.formatted >= b.name.formatted;});
+
+              console.log('android data set',cs);
+
+              cs.sort((on,tw)=>{
+
+
+                if(!on || on.name.formatted < on.name.formatted){
+                  return  -1;
+                }
+                if(!tw || tw.name.formatted > tw.name.formatted){
+                  return 1;
+                }
+
+                return 0;
+
+              });
               let arr = [];
               for(var cb = 0; cb < cs.length; cb++){
                 var co:any = {};
                 // var cs:any = {};
                 co.id = cs[cb].id;
                 co.name = {};
-                co.name.formatted = cs[cb].name.formatted;
+                co.name.formatted = cs[cb].name.formatted || "no name";
                 co.selected = 0;
                 co.phoneNumbers = cs[cb].phoneNumbers;
 
@@ -448,6 +464,7 @@ export class ConverstationCoreProvider {
 
               this.storage.set(CONTACTS_CACHE, JSON.stringify(arr));
               l.dismiss();
+              console.log('sorted contacts list', cs);
               resolver(cs);
           }.bind(this));
           }else{

@@ -33,7 +33,6 @@ export class GroupAutoComponent {
   constructor(private conversations:ConverstationCoreProvider,
     private viewCtrl:ViewController
     ,private cont:Contacts,
-    
      private navParams:NavParams) {
 
 
@@ -88,7 +87,7 @@ export class GroupAutoComponent {
     }
 
 
-    console.log(idx, cExcist, 'first');
+    
 
     if(cExcist > -1){
 
@@ -103,7 +102,7 @@ export class GroupAutoComponent {
         }
 
     }else{
-      console.log(this.items, idx, this.selectedList);
+      
       this.items[this.expandingList].selected = 0;
         this.items[this.expandingList].phoneNumbers[idx].selected = true;
         this.items[this.expandingList].selected += 1;
@@ -305,7 +304,7 @@ export class GroupAutoComponent {
 
 
   hardRefreshCont(){
-    console.log('hard refresh started');
+    console.log('hard refresh started qeqwe');
 
     return new Promise(function(resolve){
       this.conversations.test().then(function(arr){

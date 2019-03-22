@@ -21,10 +21,10 @@ export class DbProvider {
 
   constructor(private plt:Platform,private sqLite: SQLite,private storage:Storage) {
     
-    this.databaseReady = new BehaviorSubject(false);
-    this.prepareOrOpenDB().then(function(state){
-      this.dbCreated = state;
-    }.bind(this));
+    // this.databaseReady = new BehaviorSubject(false);
+    // this.prepareOrOpenDB().then(function(state){
+    //   this.dbCreated = state;
+    // }.bind(this));
   }
 
 
